@@ -52,10 +52,10 @@ Rails.application.routes.draw do
     get 'cart_items/create'
   end
   namespace :public do
-    get 'cutomers/show'
-    get 'cutomers/edit'
-    get 'cutomers/update'
-    get 'cutomers/unsubscribe'
+    get 'customers/show'
+    get 'customers/edit'
+    get 'customers/update'
+    get 'customers/unsubscribe'
   end
   namespace :public do
     get 'items/index'
