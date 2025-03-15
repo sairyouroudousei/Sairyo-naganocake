@@ -1,46 +1,67 @@
 Rails.application.routes.draw do
 
-    # customer側ルーティング
-  devise_for :customers, controllers: {
-    sessions:      'customers/sessions',
-    passwords:     'customers/passwords',
-    registrations: 'customers/registrations'
-  }
-
-  scope module: 'customers' do
-    root 'items#top'
-    resources :items, only: [:show, :index]
-    get 'about' => 'items#about'
-  end
-
-  namespace :customers do
-    resources :genres, only: [:show]
-    patch 'customers/withdraw' => 'customers#withdraw', as: 'customers_withdraw'
-    get 'show' => 'customers#show'
-    get 'customers/edit' => 'customers#edit'
-    patch 'update' => 'customers#update'
-    get 'quit' => 'customers#quit'
-    get 'orders/about' => 'orders#about', as: 'orders_about'
-    get 'orders/complete' => 'orders#complete'
-    resources :orders, only: [:create, :new, :index, :show]
-    resources :cart_items, only: [:index, :create, :update, :destroy]
-    delete 'cart_items' => 'cart_items#all_destroy', as: 'all_destroy'
-    resources :shipping_addresses, only: [:index, :create, :destroy, :edit, :update]
-  end
-
-  # admin側ルーティング
+     # 管理者のログイン・トップページを顧客と分ける為のもの
   devise_for :admins, controllers: {
-    sessions:      'admins/sessions',
-    passwords:     'admins/passwords',
-    registrations: 'admins/registrations'
+    sessions: 'admins/sessions'
   }
-
-  namespace :admins do
-    root :to => 'top#top'
-    resources :customers, only: [:index, :edit, :update, :show]
-    resources :genres, only: [:index, :create, :edit, :update]
-    resources :items, only: [:show, :index, :new, :create, :edit, :update]
-    resources :orders, only: [:index, :show, :update]
-    resources :order_details, only: [:update]
+  devise_scope :admin do
+    get '/admin/orders/top' => 'admin/orders#top'
   end
+
+  # 顧客テーブル
+  devise_for :customers
+  get '/customers/withdraw' => 'customers#withdraw'
+  resources :customers, only: [:show, :edit, :update] do
+    collection do
+      patch 'active'
+    end
+  end
+  namespace :admin do
+    resources :customers
+  end
+
+  # 商品テーブル
+  root to: 'items#top'
+  resources :items, only: [:index, :show], param: :id
+
+  # カートテーブル
+  resources :carts, only: [:index,:destroy]
+  post '/cart_item' => 'carts#create', as: 'cart_item'
+  patch '/carts/:cart_item_id' => 'carts#update_item', as: 'update_item'
+  delete '/delete_item/:cart_item_id' => 'carts#delete_item', as: 'delete_item'
+
+  # 配送先テーブル
+  resources :addresses
+
+  # 注文テーブル
+# resources :orders
+get '/orders/thanks' => 'orders#thanks'
+resources :orders, only: [:new, :index, :create]
+
+
+  namespace :admin do
+    #admin側のorderテーブル
+    resources :orders, only: [:update, :index, :show] 
+    resources :order_details, only: [:update]
+    resources :genres
+    resources :items
+  end
+
+  # 注文テーブル
+  get '/orders/thank' => 'orders#thank'
+  resources :orders
+  
+  
+  # 注文明細テーブル
+  resources :order_details, only: [:index, :show]
+
+  namespace :admin do
+    get 'order_details/edit'
+    get 'order_details/index'
+  end
+
+  # 検索用
+  get '/search', to: 'search#search'
+
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
