@@ -12,8 +12,8 @@ Rails.application.routes.draw do
 
 
 scope module: :public do
-  root to:"homes#top"
-  get "about" => "homes#about"
+  root to:"home#top"
+  get "about" => "home#about"
   resources :items, only: [:index, :show]
 #customersコントローラのルーティング
   get "customers/my_page" => "customers#show", as: "my_page"
