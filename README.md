@@ -1,6 +1,4 @@
 
-# README
-# プロジェクト名
 裁量労働制
 naganocake ECサイト
 
