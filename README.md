@@ -1,7 +1,9 @@
+
 # README
 # プロジェクト名
 裁量労働制
 naganocake ECサイト
+
 
 
 Rails version: 6.1.7.10
