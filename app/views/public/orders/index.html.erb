@@ -1,2 +1,44 @@
-<h1>Public::Orders#index</h1>
-<p>Find me in app/views/public/orders/index.html.erb</p>
+<div class="container mt-5">
+  <h4 class="mb-4">注文履歴</h4>
+
+  <% if @orders.any? %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>注文日</th>
+          <th>配送先</th>
+          <th>注文商品</th>
+          <th>支払金額</th>
+          <th>ステータス</th>
+          <th>注文詳細</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <% order.order_details.each_with_index do |order_detail, index| %>
+          <tr>
+            <% if index == 0 %>
+                <td rowspan="<%= order.order_details.count %>"><%= order.created_at.strftime('%Y-%m-%d') %></td>
+                <td rowspan="<%= order.order_details.count %>">
+                  〒<%= order.postal_code %><br>
+                  <%= order.address %><br>
+                  <%= order.name %>
+                </td>
+            <% end %>
+              <td><%= order_detail.item.name %></td>
+              <td><%= number_to_currency(order_detail.price) %></td>
+              <% if index == 0 %>
+                <td rowspan="<%= order.order_details.count %>"><%= number_to_currency(order.total_payment) %></td>
+                <td rowspan="<%= order.order_details.count %>">
+                  <%= link_to '表示する', public_order_path(order), class: 'btn btn-primary btn-sm' %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>注文履歴はありません。</p>
+  <% end %>
+</div>

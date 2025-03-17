@@ -10,7 +10,7 @@
                 <%= f.label :postal_code, "郵便番号（ハイフンなし）" %>
               </td>
               <td>
-                <%= f.text_field :postal_code, placeholder: "0000000000" %>
+                <%= f.text_field :postal_code, placeholder: "0000000000", class: "form-control w-50" %>
               </td>
             </tr>
             <tr>
@@ -18,7 +18,7 @@
                 <%= f.label :address, "住所" %>
               </td>
               <td>
-                <%= f.text_field :address, placeholder: "東京都渋谷区" %>
+                <%= f.text_field :address, placeholder: "東京都渋谷区", class: "form-control" %>
               </td>
             </tr>
             <tr>
@@ -26,27 +26,28 @@
                 <%= f.label :name, "宛名" %>
               </td>
               <td>
-                <%= f.text_field :name, placeholder: "桜木花道" %>
-              </td>
-              <td>
-                <%= f.submit "新規登録", class:"btn btn-success px-4" %>
+                <%= f.text_field :name, placeholder: "桜木花道", class: "form-control w-50" %>
               </td>
             </tr>
+            
           </tobody>
         </table>
       </div>
     </div>
+    <div class="text-center mb-5">
+      <%= f.submit "新規登録", class:"btn btn-success px-4" %>
+    </div>
   <% end %>
 
   <div class="row">
-    <div class="col-9">
+    <div class="col-10">
       <table class="table table-bordered">
-        <thead class= "thead-light" >
+        <thead class= "thead-light text-center" >
           <tr>
             <th>郵便番号</th>
             <th>住所</th>
             <th>宛名</th>
-            <th></th>
+            <th class="text-end"></th> 
           </tr>
         </thead>
         <tbody>
@@ -56,8 +57,10 @@
               <td><%= f.address %></td>
               <td><%= f.name %></td>
               <td>
-                <%= link_to "編集する", edit_address_path(f), class: "glyphicon glyphicon-pencil btn-sm btn-success" %>
-                <%= link_to "削除する", address_path(f), method: :delete, data: { confirm: '本当に消しますか？'}, class: "glyphicon glyphicon-trash btn-sm btn-danger" %>
+                <div class="d-flex justify-content-center" style="gap: 30px;">
+                  <%= link_to "編集する", edit_address_path(f), class: "btn-sm btn-success " %>
+                  <%= link_to "削除する", address_path(f), method: :delete, data: { confirm: '本当に消しますか？'}, class: "btn-sm btn-danger" %>
+                </div>
               </td>
             </tr>
           <% end %>
