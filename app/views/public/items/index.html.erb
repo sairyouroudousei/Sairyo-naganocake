@@ -1,2 +1,16 @@
-<h1>Public::Items#index</h1>
-<p>Find me in app/views/public/items/index.html.erb</p>
+<h1>商品一覧</h1>
+<ul>
+  <% @items.each do |item| %>
+    <li>
+      <%= link_to item_path(item) do %>
+        <% if item.image.attached? %>
+          <%= image_tag item.image, size: "200x200" %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: "200x200" %>
+        <% end %>
+        <p><%= item.item_name %></p>
+        <p><%= item.price %>円</p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
