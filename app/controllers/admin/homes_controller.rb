@@ -3,6 +3,7 @@ class Admin::HomesController < ApplicationController
 
   def top
     @order = Order.order(created_at: :desc).page(params[:page]).per(10)
+    @orders = Order.all
   end
 
   private
