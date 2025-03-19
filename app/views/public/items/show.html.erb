@@ -8,4 +8,11 @@
 <% end %>
 <p>価格: <%= @item.price %>円</p>
 <p>説明: <%= @item.item_details %></p>
+<p>販売ステータス: <%= @item.is_sale ? '販売中' : '販売停止' %></p>
+<%= form_with model: CartItem.new, url: cart_items_path, method: :post do |f| %>
+  <%= f.hidden_field :item_id, value: @item.id %>
+  <label>数量: </label>
+  <%= f.number_field :quantity, value: 1, min: 1 %>
+  <%= f.submit 'カートに追加' %>
+<% end %>
 <%= link_to '戻る', items_path %>
