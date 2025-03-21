@@ -12,12 +12,28 @@
   </div>
 <% end %>
 <%= form_with model: @item, url: admin_items_path, local: true do |f| %>
-  <p>商品名: <%= f.text_field :name %></p>
-  <p>ジャンル:<%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: 'ジャンルを選択' } %></p>
-  <p>価格: <%= f.number_field :price %></p>
-  <p>販売ステータス: <%= f.check_box :is_active %> 販売中</p>
-  <p>画像アップロード: <%= f.file_field :image %></p>
-  <p>説明: <%= f.text_area :introduction %></p>
+
+  <%= f.label :name,"商品名" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :genre_id,"ジャンル" %>
+  <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: 'ジャンルを選択' } %>
+
+  <%= f.label :price,"税抜き価格" %>
+  <%= f.number_field :price %>
+
+  <p>販売ステータス
+  <%= f.radio_button :is_active, true %>
+  <%= f.label :is_active_true, '販売中' %>
+  <%= f.radio_button :is_active, false %>
+  <%= f.label :is_active_false, '販売停止中' %></p>
+
+  <%= f.label :image,"画像アップロード" %>
+  <%= f.file_field :image %>
+
+  <%= f.label :introduction,"説明" %>
+  <%= f.text_area :introduction %>
+
   <%= f.submit '登録' %>
 <% end %>
 

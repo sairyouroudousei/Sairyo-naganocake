@@ -5,6 +5,7 @@
 <ul>
   <% @items.each do |item| %>
     <li>
+      <%= item.id %>
       <% if item.image.attached? %>
         <%= image_tag item.image, size: "200x200" %>
       <% else %>
