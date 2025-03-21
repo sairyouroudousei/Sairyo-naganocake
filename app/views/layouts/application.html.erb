@@ -11,7 +11,46 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
-  </body>
+  <% if customer_signed_in? %>
+    <div id = "header" >
+      <%= render "layouts/header" %>
+    </div id = "header">
+
+    <div>
+      <!--カスタマー用body-->
+      <%= yield %>
+    </div>
+  
+    <div id = "footer" >
+      <%= render "layouts/footer" %>
+    </div id = "footer">
+
+  <% elsif admin_signed_in? %>
+    <div id = "header" >
+      <%= render "layouts/header" %>
+    </div id = "header">
+
+    <div>
+      <!--管理者用body-->
+      <%= yield %>
+    </div>
+  
+    <div id = "footer" >
+      <%= render "layouts/footer" %>
+    </div id = "footer">
+
+  <% else %>
+    <div id = "header" >
+      <%= render "layouts/header" %>
+    </div id = "header">
+
+    <div>
+      <!--body-->
+      <%= yield %>
+    </div>
+  
+    <div id = "footer" >
+      <%= render "layouts/footer" %>
+    </div id = "footer">
+  <%end%>
 </html>
