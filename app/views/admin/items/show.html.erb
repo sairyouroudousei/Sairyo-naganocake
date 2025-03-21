@@ -6,7 +6,7 @@
 <% else %>
   <%= image_tag 'no_image.jpg', size: "200x200" %>
 <% end %>
-<p>ジャンルID: <%= @item.genre_id %></p>
+<p>ジャンル: <%= @item.genre&.name || '未設定' %></p>
 <p>価格: <%= (@item.price * 1.1).floor %>円（税込）</p>
 <p>販売ステータス: <%= @item.is_active ? '販売中' : '販売停止' %></p>
 <p>説明: <%= @item.introduction %></p>
