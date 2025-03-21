@@ -1,6 +1,16 @@
 <h1>Admin::Items#edit</h1>
 <p>Find me in app/views/admin/items/edit.html.erb</p>
 <h1>商品情報編集</h1>
+<% if @item.errors.any? %>
+  <div class="error_messages">
+    <h2>エラーがあります：</h2>
+    <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= form_with model: @item, url: admin_item_path(@item), method: :patch, local: true do |f| %>
   <p>商品名: <%= f.text_field :name %></p>
   <p>ジャンルID: <%= f.number_field :genre_id %></p>
