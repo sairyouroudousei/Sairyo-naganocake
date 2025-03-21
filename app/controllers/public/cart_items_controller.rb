@@ -1,7 +1,9 @@
 class Public::CartItemsController < ApplicationController
   #before_action :authenticate_customer!
-  def index
+  def index #途中
     @cart_items = current_customer.cart_items
+
+    #合計金額出すメソッド
   end
 
   def update
@@ -14,17 +16,20 @@ class Public::CartItemsController < ApplicationController
   end
 
   def destroy
+    #1こだけ削除
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
     redirect_to cart_items_path
   end
 
   def destroy_all
-    current_customer.cart_items.destroy_all
+    #全削除
+    @cart_item = current_customer.cart_items
+    @cart_item.destroy_all
     redirect_to cart_items_path
   end
 
-  def create
+  def create #途中
     #アイテムを検索
     @item = Item.find(params[:item][:item_id])
     amount = params[:item][:amount].to_i
@@ -36,7 +41,7 @@ class Public::CartItemsController < ApplicationController
     if @cart_item.save
       redirect_to cart_items_path
     else
-      redirect_to @item
+      redirect_to my_page_path
     end
   end
 
