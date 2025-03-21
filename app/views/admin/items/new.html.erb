@@ -13,7 +13,7 @@
 <% end %>
 <%= form_with model: @item, url: admin_items_path, local: true do |f| %>
   <p>商品名: <%= f.text_field :name %></p>
-  <p>ジャンルID: <%= f.number_field :genre_id %></p>
+  <p>ジャンル:<%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: 'ジャンルを選択' } %></p>
   <p>価格: <%= f.number_field :price %></p>
   <p>販売ステータス: <%= f.check_box :is_active %> 販売中</p>
   <p>画像アップロード: <%= f.file_field :image %></p>
