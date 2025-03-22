@@ -1,7 +1,7 @@
 class Admin::OrdersController < ApplicationController
   before_action :authenticate_admin!
-   # GET /admin/orders/:id
-   def show
+  # GET /admin/orders/:id
+  def show
     @order = Order.find(params[:id])
     @order_details = @order.order_details
   end
