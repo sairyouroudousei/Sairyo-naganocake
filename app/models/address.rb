@@ -8,4 +8,9 @@ class Address < ApplicationRecord
   def shipping_address_for_view
     "#{postal_code} #{address} #{name}"
   end
+
+  #既存の配送先を表示させるためのメソッド
+  def address_display
+    '〒' + postal_code + ' ' + address + ' ' + name
+  end
 end
