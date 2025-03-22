@@ -1,10 +1,7 @@
 class Public::CartItemsController < ApplicationController
   #before_action :authenticate_customer!
-  def index 
-    @cart_items = current_customer.cart_items
-
-    #商品画像用 途中
-    #@item = Item.find(params[:id])
+  def index
+    @cart_items = CartItem.all
   end
 
   def update
