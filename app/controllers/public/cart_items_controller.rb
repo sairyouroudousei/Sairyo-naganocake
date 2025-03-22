@@ -2,6 +2,9 @@ class Public::CartItemsController < ApplicationController
   #before_action :authenticate_customer!
   def index 
     @cart_items = current_customer.cart_items
+
+    #商品画像用 途中
+    #@item = Item.find(params[:id])
   end
 
   def update
@@ -27,24 +30,23 @@ class Public::CartItemsController < ApplicationController
     redirect_to cart_items_path
   end
 
-  def create #途中
-    #商品IDと個数を探す
-    @item = current_customer.cart_items.find_by(item_id: params[:cart_item][:item_id])
-    amount = params[:cart_item][:amount].to_i
+  def create 
+        #検索と数字型に変換
+        @item = Item.find(params[:cart_item][:item_id])
+        amount = params[:cart_item][:amount].to_i
+    
+        #追加した商品がカート内に存在するかの判別
+        #カート内の個数をフォームから送られた個数分追加する
+        @cart_item = current_customer.cart_items.find_or_initialize_by(item_id: @item.id)
+        @cart_item.amount = (@cart_item.amount || 0) + amount
+    
+        if @cart_item.save
+          redirect_to cart_items_path
+        else
+          redirect_to my_page_path
+        end
+      end
 
-    #presentで値が入っているかを確認
-    if @item.present?
-      cart_item_amount = item.amount + params[:cart_item][:amount].to_i
-      item.save
-      redirect_to cart_items_path
-    else
-      @cart_item = CartItem.new(cart_item_params)
-      #cart_item.customer_id = current_customer.id
-      @cart_item.amount = (@cart_item.amount || 0) + amount
-      @cart_item.save
-      redirect_to my_page_path
-    end
-  end
 
   private
   def cart_item_params
