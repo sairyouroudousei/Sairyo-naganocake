@@ -1,9 +1,7 @@
 class Public::CartItemsController < ApplicationController
   #before_action :authenticate_customer!
-  def index #途中
+  def index 
     @cart_items = current_customer.cart_items
-
-    #合計金額出すメソッド
   end
 
   def update
@@ -30,25 +28,26 @@ class Public::CartItemsController < ApplicationController
   end
 
   def create #途中
-    #アイテムを検索
-    @item = Item.find(params[:item][:item_id])
-    amount = params[:item][:amount].to_i
+    #商品IDと個数を探す
+    @item = current_customer.cart_items.find_by(item_id: params[:cart_item][:item_id])
+    amount = params[:cart_item][:amount].to_i
 
-    #すでに存在する場合は数量を追加、存在しない場合は新しく作成
-    @cart_item = current_customer.cart_items.find_or_initialize_by(item_id: @item.id)
-    @cart_item.amount = (@cart_item.amount || 0) + amount
-
-    if @cart_item.save
+    #presentで値が入っているかを確認
+    if @item.present?
+      cart_item_amount = item.amount + params[:cart_item][:amount].to_i
+      item.save
       redirect_to cart_items_path
     else
+      @cart_item = CartItem.new(cart_item_params)
+      #cart_item.customer_id = current_customer.id
+      @cart_item.amount = (@cart_item.amount || 0) + amount
+      @cart_item.save
       redirect_to my_page_path
     end
   end
 
-  
   private
-
   def cart_item_params
-    params.require(:cart_item).permit(:amount)
+    params.require(:cart_item).permit(:item_id, :amount)
   end
 end

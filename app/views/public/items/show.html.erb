@@ -12,7 +12,7 @@
 <%= form_with model: CartItem.new, url: cart_items_path, method: :post do |f| %>
   <%= f.hidden_field :item_id, value: @item.id %>
   <label>数量: </label>
-  <%= f.number_field :quantity, value: 1, min: 1 %>
+  <%= f.number_field :amount, value: 1, min: 1 %>
   <%= f.submit 'カートに追加' %>
 <% end %>
 <%= link_to '戻る', items_path %>
