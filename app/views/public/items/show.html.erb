@@ -6,7 +6,7 @@
     <%= image_tag 'no_image.jpg', size: "200x200" %>
   <% end %>
 <% end %>
-<p>価格: <%= @item.price %>円</p>
+<p>税込価格: <%= (@item.price * 1.1).floor %>円
 <p>説明: <%= @item.introduction %></p>
 <p>販売ステータス: <%= @item.is_active ? '販売中' : '販売停止' %></p>
 <%= form_with model: CartItem.new, url: cart_items_path, method: :post do |f| %>
