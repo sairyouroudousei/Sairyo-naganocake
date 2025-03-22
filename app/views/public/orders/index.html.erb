@@ -28,10 +28,10 @@
                 </td>
             <% end %>
               <td><%= order_detail.item.name %></td>
-              <td><%= number_to_currency(order_detail.price) %></td>
-              <% if index == 0 %>
-                <td rowspan="<%= order.order_details.count %>"><%= number_to_currency(order.total_payment) %></td>
-                <td rowspan="<%= order.order_details.count %>">
+              <td><%= number_to_currency(order_detail.price, unit: '円') %></td>
+                  <% if index == 0 %>
+                    <td rowspan="<%= order.order_details.count %>"><%= number_to_currency(order.total_payment, unit: '円') %></td>
+                    <td rowspan="<%= order.order_details.count %>">
                   <%= link_to '表示する', public_order_path(order), class: 'btn btn-primary btn-sm' %>
                 </td>
               <% end %>

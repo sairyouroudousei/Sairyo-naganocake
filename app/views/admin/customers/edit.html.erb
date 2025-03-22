@@ -43,10 +43,10 @@
               <td><%= f.text_field :email,size: "50" %></td>
             </tr>
               <th><%= f.label :会員ステータス %></th>
-              <td><%= f.radio_button :is_active, true %>
-                  <%= f.label :is_active, "有効" %>
-                  <%= f.radio_button :is_active, false %>
-                  <%= f.label :is_active, "退会" %>
+              <td><%= f.radio_button :is_customer_status, true %>
+                  <%= f.label :is_customer_status, "有効" %>
+                  <%= f.radio_button :is_customer_status, false %>
+                  <%= f.label :is_customer_status, "退会" %>
               </td>
           </tbody>
             <tr>
