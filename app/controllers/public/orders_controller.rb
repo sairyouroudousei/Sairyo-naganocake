@@ -1,15 +1,25 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
+  #注文情報入力(支払方法・配送先の選択)
   def new
   end
 
+  #注文情報確認
   def confirm
+    @order = Order.new(order_params)
+    @order.postal_code = current_customer.postal_code
+    @order.address = current_customer.address
+    @order.name = current_customer.first_name + current_customer.last_name
   end
 
-  def thanks
-  end
-
+  #注文確定処理
   def create
+    @order = Order.new(order_params)
+    @order.shipping_cost = 800 
+   
+
+    #items_priceの合計を出す何かかoder_idを引っ張ってくるか
+
   end
 
   def index
@@ -19,5 +29,14 @@ class Public::OrdersController < ApplicationController
 
   def show
     @order = current_customer.orders.find(params[:id])
+  end
+
+  def thanks
+  end
+
+  private
+  #支払い情報の値だけ取得する
+  def order_params
+    params.require(:order).permit(:payment_method)
   end
 end
