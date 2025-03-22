@@ -16,7 +16,7 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.shipping_cost = 800 
-   
+  
 
     #items_priceの合計を出す何かかoder_idを引っ張ってくるか
 
