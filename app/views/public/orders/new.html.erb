@@ -1,9 +1,9 @@
 <div>
-  <h2>仮注文情報入力</h2>
+  <h2>注文情報入力</h2>
 </div>
 <%= form_with model: @order, url: orders_confirm_path, method: :post do |f| %>
   <div>
-    <h2>支払い方法</h2>
+    <h3>支払い方法</h3>
     <%= f.radio_button :クレジットカード, Order.payment_methods.key(0) %>
     <%= f.label :クレジットカード, Order.payment_methods_i18n[:credit_card] %><br>
 
@@ -12,7 +12,7 @@
   </div>
 
   <div>
-    <h2>お届け先</h2>
+    <h3>お届け先</h3>
 
     <div>
       <%= f.radio_button :address_type, "member_address", checked: true %>

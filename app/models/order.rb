@@ -9,4 +9,9 @@ class Order < ApplicationRecord
   def add_tax_price
     (self.item.price * 1.10).round
   end
+
+    #小計
+    def subtotal(cart_item)
+      item.tax_included_price * amount
+    end
 end

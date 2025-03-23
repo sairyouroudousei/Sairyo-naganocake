@@ -1,2 +1,68 @@
-<h1>Public::Orders#confirm</h1>
-<p>Find me in app/views/public/orders/confirm.html.erb</p>
+<h2>仮注文情報確認</h2>
+  <table class='table table-hover table-inverse'>
+    <thead>
+      <tr>
+        <th>商品名</th>
+        <th>単価(税込)</th>
+        <th>数量</th>
+        <th>小計</th>
+      </tr>
+    </thead>
+    <% @cart_items.each do |cart_item| %>
+      <tbody>
+        <tr>
+          <td><!--写真と商品名-->
+            <% if cart_item.item.present? && cart_item.item.image.present? %>
+              <%= image_tag cart_item.item.image, size: "50x50" %>
+            <% else %>
+              <%= image_tag "no_image.jpg", size: "50x50" %> <!-- デフォルト画像を用意 -->
+            <% end %>
+            <br>
+            <%= cart_item.item&.name || "商品情報がありません" %>
+          </td>
+          <td><!--税込単価-->
+            ¥<%= cart_item.tax_included_price %>
+          </td>
+          <td><!--数量-->
+            <%= cart_item.amount %>
+          </td>
+          <td><!--小計-->
+            ¥<%= cart_item.tax_included_price * cart_item.amount %>
+          </td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+
+  <table class="table table-bordered">
+  <tbody>
+    <tr>
+      <td>商品合計</td>
+      <td>¥<%= @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount } %></td>
+    </tr>
+    <tr>
+      <td>送料</td>
+      <td><%= @shipping_cost %></td>
+    </tr>
+    <tr>
+      <td>ご請求額</td>
+      <td><%=@cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount } + @shipping_cost %></td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <h2>仮支払い方法</h2>
+    <% if @selected_pay_method == "credit_card" %>
+      クレジットカード
+    <% else %>
+      銀行振込
+    <% end %>
+</div>
+
+<div>
+  <h2>お届け先</h2>
+
+</div>
+
+<%#= submit_tag "仮 注文を確定する", orders_complete_path, class: "btn btn-success" %>

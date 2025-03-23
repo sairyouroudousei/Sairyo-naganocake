@@ -9,8 +9,9 @@ class Public::OrdersController < ApplicationController
 
   #注文情報確認
   def confirm #途中 0,1のif文
+    @cart_items = current_customer.cart_items
+    @shipping_cost = 800
     @order = Order.new(order_params)
-    @order.shipping_cost = 800
     @order.postal_code = current_customer.postal_code
     @order.address = current_customer.address
     @order.name = current_customer.first_name + current_customer.last_name
