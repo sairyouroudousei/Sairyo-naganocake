@@ -8,6 +8,13 @@
 
 <div>
   <p>新着商品一覧</p>
+    <% @items.each do |item| %>
+      <%= link_to item_path(item.id) do %>
+        <%= image_tag item.image, size: "50x50" %>
+      <% end %>
+      <p><%= item.name %></p>
+      <p>¥<%= item.price %></p>
+  <% end %>
   
 </div>
 
