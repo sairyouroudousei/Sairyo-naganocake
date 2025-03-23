@@ -8,13 +8,30 @@ class Public::OrdersController < ApplicationController
   end
 
   #注文情報確認
-  def confirm #途中 0,1のif文
+  def confirm 
     @cart_items = current_customer.cart_items
     @shipping_cost = 800
     @order = Order.new(order_params)
-    @order.postal_code = current_customer.postal_code
-    @order.address = current_customer.address
-    @order.name = current_customer.first_name + current_customer.last_name
+    @order.payment_method = params[:order][:payment_method]
+
+    #選択した支払い方法が何かを判別する
+    if params[:order][:address_type] == "0" 
+      #orders/newでご自身の住所を選択した場合
+      @order.postal_code = current_customer.postal_code
+      @order.address = current_customer.address
+      @order.name = current_customer.family_name + current_customer.first_name
+    elsif params[:order][:address_type] == "1" 
+      #orders/newで登録済住所を選択した場合
+      @address = Address.find(params[:order][:address_id])
+      @order.postal_code = @address.postal_code
+      @order.address = @address.address
+      @order.name = @address.name
+    elsif params[:order][:address_type] == "2" 
+      #新しいお届け先を選択した場合
+      @order.postal_code = params[:order][:new_post_code]
+      @order.address = params[:order][:new_address]
+      @order.name = params[:order][:new_name]
+    end
   end
 
   #注文確定処理
@@ -40,8 +57,8 @@ class Public::OrdersController < ApplicationController
   end
 
   private
-  #支払い情報の値だけ取得する
   def order_params
-    params.require(:order).permit(:payment_method)
+    #params.require(:order).permit(:payment_method)
+    params.require(:order).permit(:payment_method, :postal_code, :address, :name)
   end
 end
