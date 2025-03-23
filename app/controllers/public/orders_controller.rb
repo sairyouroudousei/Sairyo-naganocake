@@ -1,12 +1,16 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
+
   #注文情報入力(支払方法・配送先の選択)
   def new
+    @order = Order.new
+    @addresses = current_customer.addresses.all 
   end
 
   #注文情報確認
-  def confirm
+  def confirm #途中 0,1のif文
     @order = Order.new(order_params)
+    @order.shipping_cost = 800
     @order.postal_code = current_customer.postal_code
     @order.address = current_customer.address
     @order.name = current_customer.first_name + current_customer.last_name
