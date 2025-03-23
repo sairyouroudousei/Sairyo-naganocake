@@ -3,6 +3,7 @@
 class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   before_action :reject_customer, only: [:create]
+  before_action :block_if_admin_signed_in, only: [:new, :create]
 
   # GET /resource/sign_in
   # def new
@@ -53,6 +54,15 @@ class Public::SessionsController < Devise::SessionsController
     else
       flash[:error] = "該当するユーザーが見つかりません。"
       redirect_to new_customer_session_path
+    end
+  end
+
+  private
+
+  def block_if_admin_signed_in
+    if admin_signed_in?
+      flash[:alert] = "管理者としてログイン中は顧客ログインできません。"
+      redirect_to admin_root_path
     end
   end
 end

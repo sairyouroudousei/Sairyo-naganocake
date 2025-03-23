@@ -15,8 +15,13 @@
       <tbody>
         <tr>
           <td><!--写真と商品名-->
-            <%= image_tag cart_item.item.image, size: "50x50" %><br>
-            <%= cart_item.item.name %>
+            <% if cart_item.item.present? && cart_item.item.image.present? %>
+              <%= image_tag cart_item.item.image, size: "50x50" %>
+            <% else %>
+              <%= image_tag "no_image.jpg", size: "50x50" %> <!-- デフォルト画像を用意 -->
+            <% end %>
+            <br>
+            <%= cart_item.item&.name || "商品情報がありません" %>
           </td>
           <td><!--税込単価-->
             ¥<%= cart_item.tax_included_price %>
@@ -38,8 +43,17 @@
     <% end %>
   </table>
 
+  
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>合計金額</th>
+      <td><strong>¥<%= @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount } + 800 %></strong></td>
+    </tr>
+  </tbody>
+</table>
+
 <%= link_to "買い物を続ける", items_path, class: "btn btn-secondary" %>
 <%= link_to "情報入力に進む", new_order_path, class: "btn btn-secondary" %><br>
 
-仮合計金額 ¥<%= @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount} %>
- 
+

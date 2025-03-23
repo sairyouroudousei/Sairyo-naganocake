@@ -5,6 +5,7 @@ class Address < ApplicationRecord
   validates :address, presence: true
   validates :name, presence: true
 
+  #配送先表示させるためのメソッド
   def shipping_address_for_view
     "#{postal_code} #{address} #{name}"
   end
