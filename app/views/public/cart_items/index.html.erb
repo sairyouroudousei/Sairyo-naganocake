@@ -48,7 +48,7 @@
   <tbody>
     <tr>
       <th>合計金額</th>
-      <td><strong>¥<%= @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount } + 800 %></strong></td>
+      <td><strong>¥<%= @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount } + @shipping_cost %></strong></td>
     </tr>
   </tbody>
 </table>
