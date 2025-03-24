@@ -67,5 +67,13 @@
   <h2>仮 注文情報入力画面に戻る</h2>
 </div>
 
-
-<%#= submit_tag "仮 注文を確定する", orders_complete_path, class: "btn btn-success" %>
+<%= form_with model: @order, url: orders_path do |f| %>
+  <%= f.hidden_field :payment_method %>
+  <%= f.hidden_field :postal_code %>
+  <%= f.hidden_field :address %>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :shipping_cost , value: @shipping_cost %>
+  <%= f.hidden_field :total_payment %>
+  <%= f.hidden_field :status %>
+  <%= f.submit "注文を確定する", class: "btn btn-primary" %>
+<% end %>

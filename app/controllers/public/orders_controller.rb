@@ -40,11 +40,20 @@ class Public::OrdersController < ApplicationController
   #注文確定処理
   def create
     @order = Order.new(order_params)
-    @order.shipping_cost = 800 
-  
-
-    #items_priceの合計を出す何かかoder_idを引っ張ってくるか
-
+    @shipping_cost = 800
+    @order.customer_id = current_customer.id
+    @order.save
+    @cart_items = current_customer.cart_items
+    @cart_items.each do |cart_item|
+      @order_detail = OrderDetail.new
+      @order_detail.order_id = @order.id
+      @order_detail.item_id = cart_item.item_id
+      @order_detail.price = cart_item.item.add_tax_price
+      @order_detail.amount = cart_item.amount
+      @order_detail.save
+    end
+    @cart_items.destroy_all
+    redirect_to thanks_path
   end
 
   def index
