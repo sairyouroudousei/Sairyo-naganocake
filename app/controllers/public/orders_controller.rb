@@ -11,8 +11,11 @@ class Public::OrdersController < ApplicationController
   def confirm 
     @cart_items = current_customer.cart_items
     @shipping_cost = 800
+    @total = @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount }
     @order = Order.new(order_params)
-    @order.payment_method = params[:order][:payment_method]
+    #支払い方法、郵便番号、住所、名前
+
+    @order.payment_method = params[:payment_method]
 
     #選択した支払い方法が何かを判別する
     if params[:order][:address_type] == "0" 
@@ -58,7 +61,6 @@ class Public::OrdersController < ApplicationController
 
   private
   def order_params
-    #params.require(:order).permit(:payment_method)
     params.require(:order).permit(:payment_method, :postal_code, :address, :name)
   end
 end
