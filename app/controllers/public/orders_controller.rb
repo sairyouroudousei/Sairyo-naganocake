@@ -42,18 +42,21 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @shipping_cost = 800
     @order.customer_id = current_customer.id
-    @order.save
     @cart_items = current_customer.cart_items
+    @total = @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount }
+
+    #注文情報を保存し、注文明細を作成
+    @order.save
     @cart_items.each do |cart_item|
       @order_detail = OrderDetail.new
-      @order_detail.order_id = @order.id
       @order_detail.item_id = cart_item.item_id
-      @order_detail.price = cart_item.item.add_tax_price
+      @order_detail.order_id = @order.id
       @order_detail.amount = cart_item.amount
+      @order_detail.price = cart_item.tax_included_price
       @order_detail.save
     end
     @cart_items.destroy_all
-    redirect_to thanks_path
+    redirect_to orders_path
   end
 
   def index
@@ -70,6 +73,6 @@ class Public::OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :address_type, :address_id)
+    params.require(:order).permit(:shipping_cost, :payment_method, :postal_code, :address, :name, :address_type, :address_id, :total_payment, :status)
   end
 end
