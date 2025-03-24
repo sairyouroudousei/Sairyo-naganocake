@@ -13,7 +13,6 @@ class Public::OrdersController < ApplicationController
     @shipping_cost = 800
     @total = @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount }
     @order = Order.new
-    #支払い方法、郵便番号、住所、名前
 
     @order.payment_method = params[:order][:payment_method]
     
@@ -23,7 +22,7 @@ class Public::OrdersController < ApplicationController
       #orders/newでご自身の住所を選択した場合
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = current_customer.first_name + current_customer.last_name
+      @order.name = current_customer.last_name + current_customer.first_name
     elsif params[:order][:address_type] == "registered_address" 
       #orders/newで登録済住所を選択した場合
       @address = Address.find(params[:order][:address_id])
@@ -36,8 +35,6 @@ class Public::OrdersController < ApplicationController
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
     end
-    
-    
   end
 
   #注文確定処理
