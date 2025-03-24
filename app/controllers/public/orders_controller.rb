@@ -11,27 +11,33 @@ class Public::OrdersController < ApplicationController
   def confirm 
     @cart_items = current_customer.cart_items
     @shipping_cost = 800
-    @order = Order.new(order_params)
+    @total = @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount }
+    @order = Order.new
+    #支払い方法、郵便番号、住所、名前
+
     @order.payment_method = params[:order][:payment_method]
+    
 
     #選択した支払い方法が何かを判別する
-    if params[:order][:address_type] == "0" 
+    if params[:order][:address_type] == "member_address"
       #orders/newでご自身の住所を選択した場合
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = current_customer.family_name + current_customer.first_name
-    elsif params[:order][:address_type] == "1" 
+      @order.name = current_customer.first_name + current_customer.last_name
+    elsif params[:order][:address_type] == "registered_address" 
       #orders/newで登録済住所を選択した場合
       @address = Address.find(params[:order][:address_id])
       @order.postal_code = @address.postal_code
       @order.address = @address.address
       @order.name = @address.name
-    elsif params[:order][:address_type] == "2" 
+    elsif params[:order][:address_type] == "new_address" 
       #新しいお届け先を選択した場合
-      @order.postal_code = params[:order][:new_post_code]
-      @order.address = params[:order][:new_address]
-      @order.name = params[:order][:new_name]
+      @order.postal_code = params[:order][:postal_code]
+      @order.address = params[:order][:address]
+      @order.name = params[:order][:name]
     end
+    
+    
   end
 
   #注文確定処理
@@ -58,7 +64,6 @@ class Public::OrdersController < ApplicationController
 
   private
   def order_params
-    #params.require(:order).permit(:payment_method)
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name)
+    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :address_type, :address_id)
   end
 end
