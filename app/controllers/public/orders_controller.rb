@@ -22,7 +22,7 @@ class Public::OrdersController < ApplicationController
       #orders/newでご自身の住所を選択した場合
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = current_customer.last_name + current_customer.first_name
+      @order.name = "#{current_customer.last_name} #{current_customer.first_name}"
     elsif params[:order][:address_type] == "registered_address" 
       #orders/newで登録済住所を選択した場合
       @address = Address.find(params[:order][:address_id])# 途中　他人の住所が表示される

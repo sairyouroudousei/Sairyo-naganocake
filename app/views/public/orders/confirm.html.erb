@@ -52,8 +52,8 @@
 </table>
 
 <div>
-  <h2>支払い方法</h2><!--日本語対応　途中-->
-  <p><%= @order.payment_method %></p>
+  <h2>仮支払い方法</h2><!--途中 enumで呼び出したい-->
+  <p><%= @order.payment_method_i18n %></p>
 </div>
 
 <div>
@@ -74,3 +74,4 @@
     <%= f.submit "注文を確定する", class: "btn btn-success" %>
     <%= link_to "修正する", new_order_path, class: "btn btn-secondary" %>
   <% end %>
+
