@@ -32,7 +32,7 @@
                   <% if index == 0 %>
                     <td rowspan="<%= order.order_details.count %>"><%= number_to_currency(order.total_payment, unit: '円') %></td>
                     <td rowspan="<%= order.order_details.count %>">
-                  <%= link_to '表示する', public_order_path(order), class: 'btn btn-primary btn-sm' %>
+                  <%= link_to '表示する', order_path(order), class: 'btn btn-primary btn-sm' %>
                 </td>
               <% end %>
             </tr>

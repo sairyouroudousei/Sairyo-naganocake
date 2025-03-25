@@ -1,16 +1,41 @@
 <div class="container mt-5">
   <h4 class="mb-4">
-    <span style="bg-light px-2">注文詳細</span>
+    <span style="bg-light px-2">注文履歴詳細</span>
   </h4>
 
   <div class="card shadow-sm">
     <div class="card-body">
-      <p><strong>注文番号:</strong> <%= @order.id %></p>
-      <p><strong>注文日:</strong> <%= @order.created_at.strftime('%Y-%m-%d') %></p>
-      <p><strong>合計金額:</strong> <%= number_to_currency(@order.total_amount) %></p>
-      <p><strong>配送先住所:</strong> <%= @order.shipping_address %></p>
+      <h5>注文情報</h5>
+        <p><strong>注文日:</strong> <%= @order.created_at.strftime('%Y/%m/%d') %></p>
+        <p><strong>配送先:</strong> 〒<%= @order.shipping_address_for_view %></p>
+        <p><strong>支払方法:</strong> <%= @order.payment_method_i18n %></p>
+        <p><strong>ステータス:</strong> <%= @order.status_i18n %></p>
 
-      <h5>商品一覧</h5>
+      <h5>請求情報</h5>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th>金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>合計金額</strong></td>
+              <td><%= number_to_currency(@order.total_amount) %></td>
+            </tr>
+            <tr>
+              <td><strong>配送料</strong></td>
+              <td><%= number_to_currency(@order.shipping_cost) %></td>
+            </tr>
+            <tr>
+              <td><strong>請求金額</strong></td>
+              <td><%= number_to_currency(@order.total_amount + @order.shipping_cost) %></td>
+            </tr>
+          </tbody>
+        </table>
+
+      <h5>注文内容</h5>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -20,11 +45,11 @@
           </tr>
         </thead>
         <tbody>
-          <% @order.order_items.each do |item| %>
+          <% @order.order_details.each do |order_detail| %>
             <tr>
-              <td><%= item.product.name %></td>
-              <td><%= item.amount %></td>
-              <td><%= number_to_currency(item.price, unit: '円') %></td>
+              <td><%= order_detail.item.name %></td>
+              <td><%= order_detail.amount %></td>
+              <td><%= number_to_currency(order_detail.price, unit: '円') %></td>
             </tr>
           <% end %>
         </tbody>
@@ -32,5 +57,5 @@
     </div>
   </div>
 
-  <%= link_to '戻る', public_orders_path, class: 'btn btn-secondary mt-3' %>
+  <%= link_to '戻る', orders_path, class: 'btn btn-secondary mt-3' %>
 </div>

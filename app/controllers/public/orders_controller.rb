@@ -13,7 +13,6 @@ class Public::OrdersController < ApplicationController
     @shipping_cost = 800
     @total = @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount }
     @order = Order.new
-    #支払い方法、郵便番号、住所、名前
 
     @order.payment_method = params[:order][:payment_method]
     
@@ -26,7 +25,8 @@ class Public::OrdersController < ApplicationController
       @order.name = "#{current_customer.last_name} #{current_customer.first_name}"
     elsif params[:order][:address_type] == "registered_address" 
       #orders/newで登録済住所を選択した場合
-      @address = Address.find(params[:order][:address_id])
+      @address = Address.find(params[:order][:address_id])# 途中　他人の住所が表示される
+      #byebug
       @order.postal_code = @address.postal_code
       @order.address = @address.address
       @order.name = @address.name
@@ -36,18 +36,28 @@ class Public::OrdersController < ApplicationController
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
     end
-    
-    
   end
 
   #注文確定処理
   def create
     @order = Order.new(order_params)
-    @order.shipping_cost = 800 
-  
+    @shipping_cost = 800
+    @order.customer_id = current_customer.id
+    @cart_items = current_customer.cart_items
+    @total = @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount }
 
-    #items_priceの合計を出す何かかoder_idを引っ張ってくるか
-
+    #注文情報を保存し、注文明細を作成
+    @order.save
+    @cart_items.each do |cart_item|
+      @order_detail = OrderDetail.new
+      @order_detail.item_id = cart_item.item_id
+      @order_detail.order_id = @order.id
+      @order_detail.amount = cart_item.amount
+      @order_detail.price = cart_item.tax_included_price
+      @order_detail.save
+    end
+    @cart_items.destroy_all
+    redirect_to orders_path
   end
 
   def index
@@ -64,6 +74,6 @@ class Public::OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :address_type, :address_id)
+    params.require(:order).permit(:shipping_cost, :payment_method, :postal_code, :address, :name, :address_type, :address_id, :total_payment, :status)
   end
 end

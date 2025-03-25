@@ -52,7 +52,7 @@
 </table>
 
 <div>
-  <h2>仮支払い方法</h2><!--途中 enumで呼び出したい→最後に_i18nつければOK-->
+  <h2>仮支払い方法</h2><!--途中 enumで呼び出したい-->
   <p><%= @order.payment_method_i18n %></p>
 </div>
 
@@ -63,9 +63,15 @@
     <p><%= @order.name %>様<p>
 </div>
 
-<div>
-  <h2>仮 注文情報入力画面に戻る</h2>
-</div>
+  <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
+    <%= f.hidden_field :postal_code, value: @order.postal_code %>
+    <%= f.hidden_field :payment_method, value: @order.payment_method %>
+    <%= f.hidden_field :address, value: @order.address %>
+    <%= f.hidden_field :name, value: @order.name %>
+    <%= f.hidden_field :shipping_cost, value: @shipping_cost %>
+    <%= f.hidden_field :total_payment, value: @total %>
+    <%= f.hidden_field :status %>
+    <%= f.submit "注文を確定する", class: "btn btn-success" %>
+    <%= link_to "修正する", new_order_path, class: "btn btn-secondary" %>
+  <% end %>
 
-
-<%= link_to "仮 注文を確定する", orders_complete_path, class: "btn btn-success" %>
