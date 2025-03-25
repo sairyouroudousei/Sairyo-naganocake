@@ -10,8 +10,8 @@
         <% end %>
         <p><%= item.name %></p>
       <% end %>
-      <p>税込価格: <%= (item.price * 1.1).floor %>円
-
+      <p>税込価格: <%= (item.price * 1.1).floor %>円</P>
     </li>
   <% end %>
 </ul>
+<%= paginate @items %>

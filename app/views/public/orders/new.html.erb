@@ -1,18 +1,18 @@
 <div>
-  <h2>仮注文情報入力</h2>
+  <h2>注文情報入力</h2>
 </div>
 <%= form_with model: @order, url: orders_confirm_path, method: :post do |f| %>
   <div>
-    <h2>支払い方法</h2>
-    <%= f.radio_button :クレジットカード, Order.payment_methods.key(0) %>
+    <h3>支払い方法</h3>
+    <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
     <%= f.label :クレジットカード, Order.payment_methods_i18n[:credit_card] %><br>
 
-    <%= f.radio_button :銀行振込, Order.payment_methods.key(1) %>
+    <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
     <%= f.label :銀行振込, Order.payment_methods_i18n[:transfer]%>
   </div>
 
   <div>
-    <h2>お届け先</h2>
+    <h3>お届け先</h3>
 
     <div>
       <%= f.radio_button :address_type, "member_address", checked: true %>
@@ -32,15 +32,15 @@
       <table>
         <tr>
           <td>郵便番号(ハイフンなし)</td>
-          <td><%= f.text_field :new_post_code %></td>
+          <td><%= f.text_field :postal_code %></td>
         </tr>
         <tr>
           <td>住所</td>
-          <td><%= f.text_field :new_address %></td>
+          <td><%= f.text_field :address %></td>
         </tr>
         <tr>
           <td>宛名</td>
-          <td><%= f.text_field :new_name %></td>
+          <td><%= f.text_field :name %></td>
         </tr>
       </table>
     </div>

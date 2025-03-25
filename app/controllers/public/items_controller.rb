@@ -1,6 +1,6 @@
 class Public::ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @items = Item.page(params[:page]).per(2) # ← 1ページに2件ずつ表示
   end
 
   def show
