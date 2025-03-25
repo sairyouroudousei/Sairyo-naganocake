@@ -4,6 +4,10 @@
       <%= link_to root_path, class: "navbar-brand p-3" do %>
         <%= image_tag "ながのケーキロゴ1.png", alt: "Logo", class: "mb-3", width: 100 %>
       <% end %>
+        <% if customer_signed_in? %>
+            ようこそ、<%= current_customer.last_name %>さん！
+        <% end %>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -13,7 +17,6 @@
 
         <!--カスタマーログイン時-->
         <% if customer_signed_in? %>
-            ようこそ、<%= current_customer.last_name %>さん！
           <li>
             <%= link_to my_page_path, class: 'nav-link text-light' do %>
               マイページ
