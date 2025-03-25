@@ -14,6 +14,11 @@ class Public::OrdersController < ApplicationController
     @total = @cart_items.sum { |cart_item| cart_item.tax_included_price * cart_item.amount }
     @order = Order.new
 
+    unless params[:order][:payment_method].present?
+      flash[:alert] = "支払方法を選択してください"
+      redirect_back(fallback_location: new_order_path) and return
+    end
+
     @order.payment_method = params[:order][:payment_method]
     
 
