@@ -17,6 +17,10 @@ class Admin::OrdersController < ApplicationController
       if @order.status == "payment_confirmation"
         @order_details.update_all(making_status: "awaiting_manufacture")
       end
+
+      if @order.status == "already_shipped"
+        @order_details.update_all(making_status: "already_shipped")
+      end
       
       if @order.save
         flash[:notice] = "注文の更新に成功しました。"
