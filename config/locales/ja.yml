@@ -17,6 +17,39 @@ ja:
         in_production: "製作中"
         completion_of_production: "製作完了"
   activerecord:
+  ja:
+  activerecord:
+    models:
+      item: 商品
+      genre: ジャンル
+    attributes:
+      item:
+        name: 商品名
+        introduction: 商品説明
+        price: 価格
+        is_active: 販売ステータス
+        genre_id: ジャンル
+      genre:
+        name: ジャンル
+    errors:
+      models:
+        item:
+          attributes:
+            name:
+              blank: "を入力してください"
+            introduction:
+              blank: "を入力してください"
+            price:
+              blank: "を入力してください"
+              not_a_number: "は0円以上の整数で入力してください"
+              not_an_integer: "は整数で入力してください"
+              greater_than_or_equal_to: "は0円以上で入力してください"
+            genre_id:
+              blank: "を入力してください"
+        genre:
+          attributes:
+            name:
+              blank: "を入力してください"
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
