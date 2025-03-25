@@ -15,7 +15,7 @@ ja:
         unavoidable: "着手不可"
         awaiting_manufacture: "製作待ち"
         in_production: "製作中"
-        completion_of_product: "製作完了"
+        completion_of_production: "製作完了"
   activerecord:
     errors:
       messages:
