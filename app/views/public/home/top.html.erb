@@ -9,10 +9,12 @@
 <div>
   <p>新着商品一覧</p>
     <% @items.each do |item| %>
-      <% if item.image.attached? %>
-        <%= image_tag item.image, size: "200x200" %>
-      <% else %>
-        <%= image_tag 'no_image.jpg', size: "200x200" %>
+      <%= link_to item_path(item) do %>
+        <% if item.image.attached? %>
+          <%= image_tag item.image, size: "200x200" %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: "200x200" %>
+        <% end %>
       <% end %>
       <p><%= item.name %></p>
       <p>¥<%= item.price %></p>

@@ -5,11 +5,13 @@
 <ul>
   <% @items.each do |item| %>
     <li>
+    <%= link_to admin_item_path(item) do %>
       <% if item.image.attached? %>
         <%= image_tag item.image, size: "200x200" %>
       <% else %>
         <%= image_tag 'no_image.jpg', size: "200x200" %>
       <% end %>
+    <% end %>
       <%= link_to item.name, admin_item_path(item) %>
       税抜価格: <%= item.price %>円
       税込価格: <%= (item.price * 1.1).floor %>円
