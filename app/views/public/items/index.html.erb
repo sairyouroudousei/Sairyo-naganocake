@@ -4,9 +4,9 @@
     <li>
       <%= link_to item_path(item) do %>
         <% if item.image.attached? %>
-          <%= image_tag item.image, size: "200x200" %>
+          <%= image_tag item.image, size: "100x100" %>
         <% else %>
-          <%= image_tag 'no_image.jpg', size: "200x200" %>
+          <%= image_tag 'no_image.jpg', size: "100x100" %>
         <% end %>
         <p><%= item.name %></p>
       <% end %>
