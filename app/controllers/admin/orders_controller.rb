@@ -14,12 +14,10 @@ class Admin::OrdersController < ApplicationController
       @order_details = @order.order_details
   
       # 製作ステータスが更新された後に注文ステータスを変更
-      if @order.status == "payment_confirmation"
-        @order_details.update_all(making_status: "awaiting_manufacture")
-      end
-
-      if @order.status == "already_shipped"
-        @order_details.update_all(making_status: "already_shipped")
+      if @order.payment_confirmation?
+        @order_details.each { |detail| detail.awaiting_manufacture! }
+      elsif @order.already_shipped?
+        @order_details.each { |detail| detail.already_shipped! }
       end
       
       if @order.save
