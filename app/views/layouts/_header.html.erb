@@ -1,35 +1,39 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <div class="container">
-      <%= link_to root_path, class: "navbar-brand p-3" do %>
+      <%= link_to root_path, class: "navbar-brand p-3 mr-auto" do %>
         <%= image_tag "ながのケーキロゴ1.png", alt: "Logo", class: "mb-3", width: 100 %>
       <% end %>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-
+        <div class = 'signed_in_name mx-auto ' >
+          <% if customer_signed_in? %>
+              ようこそ、<%= current_customer.last_name %>さん！
+          <% end %>
+        </div>
         <!--カスタマーログイン時-->
         <% if customer_signed_in? %>
-            ようこそ、<%= current_customer.last_name %>さん！
-          <li>
+          <li class="nav-item">
             <%= link_to my_page_path, class: 'nav-link text-light' do %>
               マイページ
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to items_path, class: 'nav-link text-light' do %>
               商品一覧
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to cart_items_path, class: 'nav-link text-light' do %>
               ショッピングカート
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-light' do %>
               ログアウト
             <% end %> 
@@ -37,27 +41,27 @@
 
         <!--管理者ログイン時-->
         <% elsif admin_signed_in? %>
-          <li>
+          <li class="nav-item">
             <%= link_to admin_items_path, class: 'nav-link text-light' do %>
               商品一覧
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to admin_customers_path, class: 'nav-link text-light' do %>
               会員一覧
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to admin_root_path, class: 'nav-link text-light' do %>
               注文履歴一覧
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to admin_genres_path, class: 'nav-link text-light' do %>
               ジャンル一覧
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
               ログアウト
             <% end %> 
@@ -65,22 +69,22 @@
 
         <!--それ以外-->
         <% else %>
-          <li>
+          <li class="nav-item">
             <%= link_to about_path, class: 'nav-link text-light' do %>
               About
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to items_path, class: 'nav-link text-light' do %>
               商品一覧
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to new_customer_registration_path, class: 'nav-link text-light' do %>
               新規会員登録
             <% end %> 
           </li>
-          <li>
+          <li class="nav-item">
             <%= link_to new_customer_session_path, class: 'nav-link text-light' do %>
               ログイン
             <% end %> 

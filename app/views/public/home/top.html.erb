@@ -1,27 +1,35 @@
-<div>
-  <h2>ようこそ、ながのCAKEへ!<br>
-    このサイトはケーキ販売のECサイトになります。<br>
-    会員でない方も商品の閲覧はできますが、<br>
-    購入には会員登録が必要になります。<br>
-  </h2>
-</div>
+<div class = "container">
+  <div class = "row">
+    <h2>ようこそ、ながのCAKEへ!<br>
+      このサイトはケーキ販売のECサイトになります。<br>
+      会員でない方も商品の閲覧はできますが、購入には会員登録が必要になります。<br>
+    </h2>
+  </div>
 
-<div>
-  <p>新着商品一覧</p>
-    <% @items.each do |item| %>
-      <%= link_to item_path(item) do %>
-        <% if item.image.attached? %>
-          <%= image_tag item.image, size: "200x200" %>
-        <% else %>
-          <%= image_tag 'no_image.jpg', size: "200x200" %>
-        <% end %>
+  <h4>新着商品一覧</h4>
+    <div class = "card-list-container ">
+      <% @items.each do |item| %>
+      <div class="card w-50 mx-auto mt-5 shadow-lg">
+          <%= link_to item_path(item) do %>
+            <% if item.image.attached? %>
+              <%= image_tag item.image, size: "200x200", class: "card-img-top"; %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', size: "200x200", class: "card-img-top"; %>
+            <% end %>
+          <% end %>
+
+        <div class="card-body">
+          <div class="row">
+              <h5 class="card-title mx-auto "><%= item.name %></h5>
+              <p class = "card-price mx-auto"><%= (item.price * 1.1).floor %>円</p>
+          </div>
+        </div>
+
+      </div>
       <% end %>
-      <p><%= item.name %></p>
-      <p><%= item.price %>円</p>
-  <% end %>
-  
-</div>
+  </div>
 
-<div>
-    <%= link_to "すべての商品を見る >", items_path %>
+  <div>
+    <%= link_to "すべての商品を見る >", items_path, class: "btn btn-info" %>
+  </div>
 </div>

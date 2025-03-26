@@ -1,17 +1,29 @@
-<h1>商品一覧</h1>
-<ul>
-  <% @items.each do |item| %>
-    <li>
-      <%= link_to item_path(item) do %>
-        <% if item.image.attached? %>
-          <%= image_tag item.image, size: "200x200" %>
-        <% else %>
-          <%= image_tag 'no_image.jpg', size: "200x200" %>
-        <% end %>
-        <p><%= item.name %></p>
+<div class = "container">
+    <h1>商品一覧</h1>
+  <div >
+
+    <div class = "card-list-container ">
+      <% @items.each do |item| %>
+        <div class="card w-50 mx-auto mt-5 shadow-lg">
+          <%= link_to item_path(item) do %>
+            <% if item.image.attached? %>
+              <%= image_tag item.image, size: "200x200", class: "card-img-top";  %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', size: "200x200", class: "card-img-top";  %>
+            <% end %>
+          <% end %>
+
+          <div class="card-body">
+            <div class="row">
+                <h5 class="card-title mx-auto "><%= item.name %></h5>
+                <p class = "card-price mx-auto"><%= (item.price * 1.1).floor %>円</p>
+            </div>
+          </div>
+        </div>
       <% end %>
-      <p>税込価格: <%= (item.price * 1.1).floor %>円</P>
-    </li>
-  <% end %>
-</ul>
-<%= paginate @items %>
+    </div>
+  </div>
+    <div class = "mx-auto btn btn-info">
+      <%= paginate @items %>
+    </div>
+</div>
