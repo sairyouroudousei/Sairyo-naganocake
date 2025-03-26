@@ -29,7 +29,7 @@
               <%= form_with model: @order, url: admin_order_path(@order), local: true, class: "form-row" do |f| %>
                 <%= f.select :status, Order.statuses.keys.map { |key| [Order.statuses_i18n[key], key] }, class: "mr-4" %>
                 <span style="margin: 0 10px;"></span>
-                <%= f.submit "更新", class: "btn btn-sm btn-success" %>
+                <%= f.submit "更新", class: "btn btn-sm btn-outline-success" %>
               <% end %>
             </td>
           </tr>
@@ -61,7 +61,7 @@
                 <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), local: true, class: "form-row" do |f| %>
                   <%= f.select :making_status, OrderDetail.making_statuses.keys.map { |key| [OrderDetail.making_statuses_i18n[key], key] }, class: "mr-4" %>
                   <span style="margin: 0 10px;"></span>
-                  <%= f.submit "更新", class: "btn btn-sm btn-success" %>
+                  <%= f.submit "更新", class: "btn btn-sm btn-outline-success" %>
                 <% end %>
               </td>
             </tr>

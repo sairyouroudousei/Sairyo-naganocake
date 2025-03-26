@@ -41,37 +41,41 @@
         </div>
       </div>
     </div>
+    <div class="text-center mb-5">
+      <%= f.submit "新規登録", class:"btn btn-sm btn-outline-success px-4" %>
+    </div>
   <% end %>
 
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <div class="card shadow-sm p-4">
-        <table class="table table-bordered">
-          <thead class="thead-light text-center">
+  <div class="row">
+    <div class="col-10">
+      <table class="table table-bordered">
+        <thead class= "thead-light text-center" >
+          <tr>
+            <th>郵便番号</th>
+            <th>住所</th>
+            <th>宛名</th>
+            <th class="text-end"></th> 
+          </tr>
+        </thead>
+        <tbody>
+          <% @addresses.each do |f| %>
             <tr>
-              <th>郵便番号</th>
-              <th>住所</th>
-              <th>宛名</th>
-              <th class="text-end">操作</th> 
+              <td><%= f.postal_code %></td>
+              <td><%= f.address %></td>
+              <td><%= f.name %></td>
+              <td>
+                <div class="d-flex justify-content-center" style="gap: 30px;">
+                  <%= link_to "編集", edit_address_path(f), class: "btn btn-sm btn-outline-success" %>
+                  <%= link_to "削除", address_path(f), method: :delete, data: { confirm: '本当に消しますか？'}, class: "btn btn-sm btn-outline-danger" %>
+                </div>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <% @addresses.each do |address| %>
-              <tr>
-                <td><%= address.postal_code %></td>
-                <td><%= address.address %></td>
-                <td><%= address.name %></td>
-                <td class="text-center">
-                  <div class="d-flex justify-content-center" style="gap: 20px;">
-                    <%= link_to "編集する", edit_address_path(address), class: "btn btn-sm btn-success" %>
-                    <%= link_to "削除する", address_path(address), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+
+

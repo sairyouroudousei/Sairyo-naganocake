@@ -1,7 +1,9 @@
-<div class = "container">
-  <h2 class = "m-4">ご注文ありがとうございました！</h2>
-  <h4>商品到着までもうしばらくお待ちください</h4>
-  <div class = "">
-    <%= link_to '商品一覧へ戻る', items_path, class:"btn btn-primary btn-sm ml-3"%>
-    <%= link_to "注文履歴一覧を見る", orders_path, class:"btn btn-primary btn-sm ml-3" %>
+<div class = "container ">
+  <div class = "text-center">
+    <h2 class = "m-4 "><strong>ご注文ありがとうございました！</strong></h2>
+    <h4>商品到着までもうしばらくお待ちください</h4>
+    <div class = "mt-5">
+      <%= link_to '商品一覧へ戻る', items_path, class:"btn btn-outline-secondary btn-sm ml-3"%>
+      <%= link_to "注文履歴一覧を見る", orders_path, class:"btn btn-sm btn-outline-success ml-3" %>
+    </div>
   </div>
