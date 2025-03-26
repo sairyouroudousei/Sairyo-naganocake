@@ -12,18 +12,16 @@
       <div class="card w-50 mx-auto mt-5 shadow-lg">
           <%= link_to item_path(item) do %>
             <% if item.image.attached? %>
-              <%= image_tag item.image, size: "100x100", class: "card-img-top"; %>
+              <%= image_tag item.image, size: "200x200", class: "card-img-top"; %>
             <% else %>
-              <%= image_tag 'no_image.jpg', size: "100x100", class: "card-img-top"; %>
+              <%= image_tag 'no_image.jpg', size: "200x200", class: "card-img-top"; %>
             <% end %>
           <% end %>
 
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title"><%= item.name %></h5>
-              <p><%= item.price %>円</p>
-            </div>
+              <h5 class="card-title mx-auto "><%= item.name %></h5>
+              <p class = "card-price mx-auto"><%= (item.price * 1.1).floor %>円</p>
           </div>
         </div>
 
