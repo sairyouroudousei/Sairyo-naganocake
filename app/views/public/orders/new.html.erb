@@ -1,6 +1,6 @@
 <div class ="container" >
-  <h2>注文情報入力</h2>
-    <div class = "m-4">
+  <h2 class = "mt-4">注文情報入力</h2>
+    <div class = "m-2">
         <%= form_with model: @order, url: orders_confirm_path, method: :post do |f| %>
         <h4> 支払い方法</h4>
         <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
@@ -27,21 +27,21 @@
           <table>
             <tr>
               <td>郵便番号(ハイフンなし)</td>
-              <td><%= f.text_field :postal_code, placeholder: "00000000" %></td>
+              <td><%= f.text_field :postal_code, class: "form-control ml-3", placeholder: "00000000" %></td>
             </tr>
             <tr>
               <td>住所</td>
-              <td><%= f.text_field :address, placeholder: "東京都渋谷区代々木神園町0-0" %></td>
+              <td><%= f.text_field :address, class: "form-control ml-3", placeholder: "東京都渋谷区代々木神園町0-0" %></td>
             </tr>
             <tr>
               <td>宛名</td>
-              <td><%= f.text_field :name, placeholder: "0000000000" %></td>
+              <td><%= f.text_field :name, class: "form-control ml-3", placeholder: "0000000000" %></td>
             </tr>
           </table>
         </div>
       </div>
       <div>
-        <%= button_to '確認画面へ進む', orders_confirm_path, method: :post, class: "btn btn-sm btn-outline-success" %>
+        <%= button_to '確認画面へ進む', orders_confirm_path, method: :post, class: "btn btn-sm btn-outline-success m-4" %>
       </div>
   <% end %>
 </div>

@@ -8,10 +8,10 @@
   <div class = "">
 
   <%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch, local: true do |f| %>
-    ジャンル名: <%= f.text_field :name %>
+    ジャンル名<%= f.text_field :name %>
     <%= f.submit '更新',class:"btn btn-sm btn-outline-success ml-3" %>
   <% end %>
 
 
-  <%= link_to '戻る', admin_genres_path, class:" m-4 btn btn-sm btn-outline-success" %>
+  <%= link_to '戻る', admin_genres_path, class:" m-4 btn btn-sm btn-outline-secondary" %>
 </div>

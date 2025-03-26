@@ -1,6 +1,6 @@
 <div class ="container" >
-  <h2>注文情報確認</h2>
-    <table class="table table-hover table-inverse">
+  <h2 class = "mt-4">注文情報確認</h2>
+    <table class="table table-hover table-inverse m-2">
       <thead>
         <tr>
           <th>商品名</th>
@@ -40,7 +40,7 @@
         <h4>お支払い方法</h4>
           <p class = "m-2"><%= @order.payment_method_i18n %></p>
         <h4>お届け先</h4>
-          <div class = "m-2">
+          <div class = "mt-2">
             <p>〒<%= @order.postal_code %></p>
             <p><%= @order.address %></p>
             <p><%= @order.name %> 様</p>
@@ -76,8 +76,8 @@
       <%= f.hidden_field :shipping_cost, value: @shipping_cost %>
       <%= f.hidden_field :total_payment, value: @total %>
       <%= f.hidden_field :status %>
-      <%= f.submit "注文を確定する", class: "btn btn-sm btn-outline-success" %>
-      <%= link_to "修正する", new_order_path, class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to "修正する", new_order_path, class: "btn btn-sm btn-outline-secondary m-4" %>
+      <%= f.submit "注文を確定する", class: "btn btn-sm btn-outline-success m-4" %>
     <% end %>
   </div>
 </div>
