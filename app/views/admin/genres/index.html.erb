@@ -11,23 +11,25 @@
   <% end %>
 
   <h4 class="m-4">
-    <span style="bg-light px-2">
-      ジャンル一覧
-      </span>
+    ジャンル一覧
   </h4>
   <div>
     <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
        新規追加 <%= f.text_field :name, placeholder: "ジャンル名" %>
       <%= f.submit '追加',class:"btn btn-primary btn-sm ml-3" %>
     <% end %>
-    <table class= 'm-4 table table-hover table-inverse'>
+    <table class= 'm-4 table table table-borderless'>
       <thead>
-        <th>ジャンル名</th>
+        <tr>
+          <td>ジャンル名</td>
+          <td></td>
+        </tr>
       </thead>
       <% @genres.each do |genre| %>
       <tbody>
         <tr>
-          <td><%= genre.name %> | <%= link_to '編集', edit_admin_genre_path(genre),class:"btn btn-primary btn-sm ml-3" %></td>
+          <td><%= genre.name %></td>
+          <td><%= link_to '編集', edit_admin_genre_path(genre),class:"btn btn-primary btn-sm ml-3" %></td>
         </tr>
       </tbody>
     <% end %>
