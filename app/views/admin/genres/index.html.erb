@@ -1,26 +1,35 @@
-<h1>Admin::Gernes#index</h1>
-<p>Find me in app/views/admin/geres/index.html.erb</p>
-<h1>ジャンル一覧</h1>
-<% if @genre.errors.any? %>
-  <div class="error_messages">
-    <h2>エラーがあります：</h2>
-    <ul>
-      <% @genre.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-<%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
-  <p>ジャンル名: <%= f.text_field :name %></p>
-  <%= f.submit '追加',class:"btn btn-primary btn-sm ml-3" %>
-<% end %>
-
-<ul>
-  <% @genres.each do |genre| %>
-    <li>
-      <%= genre.name %> |
-      <%= link_to '編集', edit_admin_genre_path(genre),class:"btn btn-primary btn-sm ml-3" %>
-    </li>
+<div class = "containner">
+  <% if @genre.errors.any? %>
+    <div class="error_messages">
+      <h2>エラーがあります：</h2>
+      <ul>
+        <% @genre.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-</ul>
+
+  <h4 class="m-4">
+    <span style="bg-light px-2">
+      ジャンル一覧
+      </span>
+    </h4>
+  <div>
+    <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
+       新規追加 <%= f.text_field :name, placeholder: "ジャンル名" %>
+      <%= f.submit '追加',class:"btn btn-primary btn-sm ml-3" %>
+    <% end %>
+    <table class= 'm-4 table table-hover table-inverse'>
+      <thead>
+        <th>ジャンル名</th>
+      </thead>
+      <% @genres.each do |genre| %>
+      <tbody>
+        <tr>
+          <td><%= genre.name %> | <%= link_to '編集', edit_admin_genre_path(genre),class:"btn btn-primary btn-sm ml-3" %></td>
+        </tr>
+      </tbody>
+    <% end %>
+    </table>
+  </div>

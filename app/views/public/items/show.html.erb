@@ -6,13 +6,13 @@
     <%= image_tag 'no_image.jpg', size: "200x200" %>
   <% end %>
 <% end %>
-<p>税込価格: <%= (@item.price * 1.1).floor %>円
-<p>説明: <%= @item.introduction %></p>
+<p>価格(税込): <%= (@item.price * 1.1).floor %>円
+<p>商品説明: <%= @item.introduction %></p>
 <p>販売ステータス: <%= @item.is_active ? '販売中' : '販売停止' %></p>
 <%= form_with model: CartItem.new, url: cart_items_path, method: :post do |f| %>
   <%= f.hidden_field :item_id, value: @item.id %>
   <label>数量: </label>
   <%= f.select :amount, options_for_select(1..10, selected: 1) %>
-  <%= f.submit 'カートに追加' %>
+  <%= f.submit 'カートに追加', class: "btn btn-info" %>
 <% end %>
-<%= link_to '戻る', items_path %>
+<%= link_to '戻る', items_path, class: "btn btn-secondary" %>
