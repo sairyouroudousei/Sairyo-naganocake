@@ -22,7 +22,7 @@
   <%= f.label :is_active_false, '販売停止中' %></p>
   <p>画像アップロード: <%= f.file_field :image %></p>
   <p>説明: <%= f.text_area :introduction %></p>
-  <%= f.submit '更新',class:"btn btn-primary btn-sm ml-3" %>
+  <%= f.submit '更新',class:"btn btn-sm btn-outline-success ml-3" %>
 <% end %>
 
-<%= link_to '戻る', admin_items_path,class:"btn btn-primary btn-sm ml-3" %>
+<%= link_to '戻る', admin_items_path,class:"btn btn-sm btn-outline-secondary ml-3" %>

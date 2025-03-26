@@ -30,10 +30,10 @@
         <%= f.hidden_field :item_id, value: @item.id %>
         <label>数量</label>
         <%= f.select :amount, options_for_select(1..10, selected: 1) %>
-        <%= f.submit 'カートに追加', class: "btn btn-info btn-sm" %>
+        <%= f.submit 'カートに追加', class: "btn btn-sm btn-outline-success" %>
       <% end %>
     </div>
   </div>
 </div>
 
-<%= link_to '戻る', items_path, class: "btn btn-secondary btn-sm" %>
+<%= link_to '戻る', items_path, class: "btn btn-sm btn-outline-secondary " %>
