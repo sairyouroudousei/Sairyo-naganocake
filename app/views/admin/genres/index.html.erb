@@ -10,13 +10,13 @@
     </div>
   <% end %>
 
-  <h4 class="m-4">
+  <h3 class="m-4">
     ジャンル一覧
-  </h4>
+  </h3>
   <div>
     <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
        新規追加 <%= f.text_field :name, placeholder: "ジャンル名" %>
-      <%= f.submit '追加',class:"btn btn-primary btn-sm ml-3" %>
+      <%= f.submit '追加',class:"btn btn-sm btn-outline-success ml-3" %>
     <% end %>
     <table class= 'm-4 table table table-borderless'>
       <thead>

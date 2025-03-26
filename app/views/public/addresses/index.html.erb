@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="text-center mb-5">
-      <%= f.submit "新規登録", class:"btn btn-success px-4" %>
+      <%= f.submit "新規登録", class:"btn btn-sm btn-outline-success px-4" %>
     </div>
   <% end %>
 
@@ -60,8 +60,8 @@
               <td><%= f.name %></td>
               <td>
                 <div class="d-flex justify-content-center" style="gap: 30px;">
-                  <%= link_to "編集する", edit_address_path(f), class: "btn btn-sm btn-outline-success" %>
-                  <%= link_to "削除する", address_path(f), method: :delete, data: { confirm: '本当に消しますか？'}, class: "btn btn-sm btn-outline-danger" %>
+                  <%= link_to "編集", edit_address_path(f), class: "btn btn-sm btn-outline-success" %>
+                  <%= link_to "削除", address_path(f), method: :delete, data: { confirm: '本当に消しますか？'}, class: "btn btn-sm btn-outline-danger" %>
                 </div>
               </td>
             </tr>
