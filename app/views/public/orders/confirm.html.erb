@@ -1,77 +1,83 @@
-<h2>注文情報確認</h2>
-  <table class='table table-hover table-inverse'>
-    <thead>
-      <tr>
-        <th>商品名</th>
-        <th>単価(税込)</th>
-        <th>数量</th>
-        <th>小計</th>
-      </tr>
-    </thead>
-    <% @cart_items.each do |cart_item| %>
-      <tbody>
+<div class ="container" >
+  <h3>注文情報確認</h3>
+    <table class="table table-bordered">
+      <thead>
         <tr>
-          <td><!--写真と商品名-->
-            <% if cart_item.item.present? && cart_item.item.image.present? %>
-              <%= image_tag cart_item.item.image, size: "50x50" %>
-            <% else %>
-              <%= image_tag "no_image.jpg", size: "50x50" %> <!-- デフォルト画像を用意 -->
-            <% end %>
-            <br>
-            <%= cart_item.item&.name || "商品情報がありません" %>
-          </td>
-          <td><!--税込単価-->
-            <%= cart_item.tax_included_price %>円
-          </td>
-          <td><!--数量-->
-            <%= cart_item.amount %>
-          </td>
-          <td><!--小計-->
-            <%= cart_item.tax_included_price * cart_item.amount %>円
-          </td>
+          <th>商品名</th>
+          <th>単価(税込)</th>
+          <th>数量</th>
+          <th>小計</th>
         </tr>
-      </tbody>
+      </thead>
+      <% @cart_items.each do |cart_item| %>
+        <tbody>
+          <tr>
+            <td><!--写真と商品名-->
+              <% if cart_item.item.present? && cart_item.item.image.present? %>
+                <%= image_tag cart_item.item.image, size: "50x50" %>
+              <% else %>
+                <%= image_tag "no_image.jpg", size: "50x50" %> <!-- デフォルト画像を用意 -->
+              <% end %>
+              <br>
+              <%= cart_item.item&.name || "商品情報がありません" %>
+            </td>
+            <td><!--税込単価-->
+              <%= cart_item.tax_included_price %>円
+            </td>
+            <td><!--数量-->
+              <%= cart_item.amount %>
+            </td>
+            <td><!--小計-->
+              <%= cart_item.tax_included_price * cart_item.amount %>円
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+    <div class = "row">
+
+      <div class = "col">
+        <h3>お支払い方法</h3>
+          <p><%= @order.payment_method_i18n %></p>
+        <h3>お届け先</h3>
+          <p>〒<%= @order.postal_code %></p>
+          <p><%= @order.address %></p>
+          <p><%= @order.name %> 様</p>
+      </div>
+
+      <div class = "col">
+        <table class='table table border less'>
+         <tbody>
+            <tr>
+              <td>商品合計</td> 
+              <td><%= @total %>円</td>
+            </tr>
+            <tr>
+              <td>送料</td>
+              <td><%= @shipping_cost %>円</td>
+            </tr>
+            <tr>
+              <td>ご請求額</td>
+              <td><%= @total + @shipping_cost %>円</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  <div> 
+    <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
+      <%= f.hidden_field :postal_code, value: @order.postal_code %>
+      <%= f.hidden_field :payment_method, value: @order.payment_method %>
+      <%= f.hidden_field :address, value: @order.address %>
+      <%= f.hidden_field :name, value: @order.name %>
+      <%= f.hidden_field :shipping_cost, value: @shipping_cost %>
+      <%= f.hidden_field :total_payment, value: @total %>
+      <%= f.hidden_field :status %>
+      <%= f.submit "注文を確定する", class: "btn btn-success" %>
+      <%= link_to "修正する", new_order_path, class: "btn btn-secondary" %>
     <% end %>
-  </table>
-
-  <table class='table table-hover table-inverse'>
-  <tbody>
-    <tr>
-      <td>商品合計</td> 
-      <td><%= @total %>円</td>
-    </tr>
-    <tr>
-      <td>送料</td>
-      <td><%= @shipping_cost %>円</td>
-    </tr>
-    <tr>
-      <td>ご請求額</td>
-      <td><%= @total + @shipping_cost %>円</td>
-    </tr>
-  </tbody>
-</table>
-
-<div>
-  <h2>支払い方法</h2>
-  <p><%= @order.payment_method_i18n %></p>
+  </div>
 </div>
 
-<div>
-  <h2>お届け先</h2>
-    <p>〒<%= @order.postal_code %></p>
-    <p><%= @order.address %></p>
-    <p><%= @order.name %> 様</p>
-</div>
-
-  <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
-    <%= f.hidden_field :postal_code, value: @order.postal_code %>
-    <%= f.hidden_field :payment_method, value: @order.payment_method %>
-    <%= f.hidden_field :address, value: @order.address %>
-    <%= f.hidden_field :name, value: @order.name %>
-    <%= f.hidden_field :shipping_cost, value: @shipping_cost %>
-    <%= f.hidden_field :total_payment, value: @total %>
-    <%= f.hidden_field :status %>
-    <%= f.submit "注文を確定する", class: "btn btn-success" %>
-    <%= link_to "修正する", new_order_path, class: "btn btn-secondary" %>
-  <% end %>
 
