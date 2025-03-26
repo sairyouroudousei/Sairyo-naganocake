@@ -1,8 +1,17 @@
-<h1>Admin::Genres#edit</h1>
-<p>Find me in app/views/admin/geres/edit.html.erb</p>
-<h1>ジャンル編集</h1>
-<%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch, local: true do |f| %>
-  <p>ジャンル名: <%= f.text_field :name %></p>
-  <%= f.submit '更新',class:"btn btn-primary btn-sm ml-3" %>
-<% end %>
-<%= link_to '戻る', admin_genres_path,class:"btn btn-primary btn-sm ml-3" %>
+<div class = "container">
+  <h4 class="m-4">
+    <span style="bg-light px-2">
+      ジャンル編集
+      </span>
+  </h4>
+
+  <div class = "">
+
+  <%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch, local: true do |f| %>
+    ジャンル名: <%= f.text_field :name %>
+    <%= f.submit '更新',class:"btn btn-primary btn-sm ml-3" %>
+  <% end %>
+
+
+  <%= link_to '戻る', admin_genres_path, class:" m-4 btn btn-primary btn-sm ml-3" %>
+</div>

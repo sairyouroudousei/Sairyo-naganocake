@@ -1,17 +1,29 @@
-<h1>商品一覧</h1>
-<ul>
-  <% @items.each do |item| %>
-    <li>
-      <%= link_to item_path(item) do %>
-        <% if item.image.attached? %>
-          <%= image_tag item.image, size: "200x200" %>
-        <% else %>
-          <%= image_tag 'no_image.jpg', size: "200x200" %>
-        <% end %>
-        <p><%= item.name %></p>
+<div class = "container">
+    <h1>商品一覧</h1>
+  <div >
+
+    <div class="card-list-container d-flex flex-wrap justify-content-center">
+      <% @items.each do |item| %>
+        <div class="card m-3 shadow-lg" style="width: 200px; height: 280px;">
+          <%= link_to item_path(item) do %>
+            <% if item.image.attached? %>
+              <%= image_tag item.image, class: "card-img-top", style: "width: 100%; height: 200px; object-fit: cover;" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', class: "card-img-top", style: "width: 100%; height: 200px; object-fit: cover;" %>
+            <% end %>
+          <% end %>
+
+          <div class="card-body text-center"><!-- 文字数多くてはみ出る場合は省略 -->
+            <h5 class="card-title text-truncate" style="max-width: 180px; font-size: clamp(12px, 1.5vw, 16px);">
+              <%= item.name %>
+            </h5>
+            <p class="card-price" style="font-size: clamp(12px, 1.2vw, 14px);"><%= (item.price * 1.1).floor %>円</p>
+          </div>
+        </div>
       <% end %>
-      <p>税込価格: <%= (item.price * 1.1).floor %>円</P>
-    </li>
-  <% end %>
-</ul>
-<%= paginate @items %>
+    </div>
+  </div>
+    <div class = >
+      <%= paginate @items %>
+    </div>
+</div>
