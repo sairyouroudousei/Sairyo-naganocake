@@ -1,28 +1,44 @@
-<h1>Admin::Items#edit</h1>
-<p>Find me in app/views/admin/items/edit.html.erb</p>
-<h1>商品情報編集</h1>
-<% if @item.errors.any? %>
-  <div class="error_messages">
-    <h2>エラーがあります：</h2>
-    <ul>
-      <% @item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-<%= form_with model: @item, url: admin_item_path(@item), method: :patch, local: true do |f| %>
-  <p>商品名: <%= f.text_field :name %></p>
-  <p>ジャンル:<%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: 'ジャンルを選択' } %></p>
-  <p>価格: <%= f.number_field :price %></p>
-  <p>販売ステータス
-  <%= f.radio_button :is_active, true %>
-  <%= f.label :is_active_true, '販売中' %>
-  <%= f.radio_button :is_active, false %>
-  <%= f.label :is_active_false, '販売停止中' %></p>
-  <p>画像アップロード: <%= f.file_field :image %></p>
-  <p>説明: <%= f.text_area :introduction %></p>
-  <%= f.submit '更新',class:"btn btn-primary btn-sm ml-3" %>
-<% end %>
-
-<%= link_to '戻る', admin_items_path,class:"btn btn-primary btn-sm ml-3" %>
+<div class = "container">
+  <% if @item.errors.any? %>
+    <div class="error_messages">
+      <h2>エラーがあります：</h2>
+      <ul>
+        <% @item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h2>商品情報編集</h2>
+  <table class="table table-borderless m-4">
+    <%= form_with model: @item, url: admin_item_path(@item), method: :patch, local: true do |f| %>
+    <tr>
+      <td>商品名</td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>ジャンル</td>
+      <td><%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: 'ジャンルを選択' } %></td>
+    </tr>
+    <tr>
+      <td>価格(税抜)</td>
+      <td><%= f.number_field :price %></td>
+    </tr>
+    <tr>
+      <td>販売ステータス</td>
+      <td><%= f.radio_button :is_active, true %><%= f.label :is_active_true, '販売中' %>
+          <%= f.radio_button :is_active, false %><%= f.label :is_active_false, '販売停止中' %></td>
+    </tr>
+    <tr>
+      <td>商品画像</td>
+      <td><%= f.file_field :image %></td>
+    </tr>
+    <tr>
+      <td>商品説明文</td>
+      <td><%= f.text_area :introduction %></td>
+    </tr>
+  </table>
+  <%= f.submit '更新',class:"btn btn-sm btn-outline-success m-3" %>
+  <% end %>
+  <%= link_to '戻る', admin_items_path,class:"btn btn-sm btn-outline-secondary m-3" %>
+</div>
