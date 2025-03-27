@@ -17,6 +17,13 @@ ja:
         in_production: "製作中"
         completion_of_production: "製作完了"
         already_shipped: "発送済み"
+  views:
+    pagination:
+      first: <i class="fas fa-angle-double-left"></i>
+      last: <i class="fas fa-angle-double-right"></i>
+      previous: <i class="fas fa-angle-left"></i>
+      next: <i class="fas fa-angle-right"></i>
+      truncate: "..."
   activerecord:
   ja:
   activerecord:
