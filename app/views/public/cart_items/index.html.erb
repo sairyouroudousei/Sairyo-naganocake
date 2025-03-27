@@ -29,7 +29,7 @@
               </td>
               <td><!--数量と変更-->
                 <%= form_with model: cart_item, method: :patch, local: true do |f| %>
-                  <%= f.select :amount, *[1..10], selected: cart_item.amount %>
+                  <%= f.select :amount, *[1..50], selected: cart_item.amount %>
                   <%= f.submit "変更", class: "btn btn-sm btn-outline-success ml-3" %>
                 <% end %>
               </td>
