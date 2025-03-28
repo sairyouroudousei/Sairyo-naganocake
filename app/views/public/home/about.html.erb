@@ -1,12 +1,35 @@
 <div class = "container">
-  <p class = "text-center ">
+  <div class = "text-center overlay-text">
     ながのCAKEは全国発送可能なケーキ屋さんです。<br>
     お子様からお年寄りの方までお召し上がりいただけるよう、<br>
     様々なバリエーションをご用意しております。<br>
     また、全国へ発送可能ですので「いつ」でも「どこ」でもご注文いただけます。<br>
     ぜひご注文ください。
-  </p>
-    <div class="top-image-container text-center">
-    <%= image_tag 'top1.jpg', class: 'top-image' %>
   </div>
+    <!-- トップ画像の表示 -->
+  <div class="top-image-container text-center">
+    <%= image_tag 'top2.jpg', class: 'top-image' %>
+  </div>
+  <style>
+  .top-image-container {
+    position: relative; /* 親要素に相対位置を設定 */
+  }
+
+  .top-image {
+    width: 100%; /* 画像を横幅100%で表示 */
+    height: auto;
+  }
+
+  .overlay-text {
+    position: absolute;
+    top: 50%; /* 画像の中央に配置 */
+    left: 50%;
+    transform: translate(-50%, -50%); /* 中央に配置するためのオフセット */
+    color: white; /* 文字色 */
+    font-size: 1.2rem; /* フォントサイズ */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 文字の影をつけて読みやすくする */
+    z-index: 1; /* 画像より前面に表示 */
+    max-width: 80%; /* 文字が広がりすぎないように調整 */
+  }
+</style>
 </div>
