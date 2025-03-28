@@ -67,7 +67,7 @@ class Public::OrdersController < ApplicationController
 
   def index
     @customer = current_customer
-    @orders = @customer.orders.includes(:order_details).order(crested_at: :desc)
+    @orders = @customer.orders.includes(:order_details).order(created_at: :desc)
   end
 
   def show
