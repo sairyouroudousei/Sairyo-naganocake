@@ -4,9 +4,9 @@
     <div class = "col">
       <%= link_to item_path(@item) do %>
         <% if @item.image.attached? %>
-          <%= image_tag @item.image, size: "200x200" %>
+          <%= image_tag @item.image, size: "500x500" %>
         <% else %>
-          <%= image_tag 'no_image.jpg', size: "200x200" %>
+          <%= image_tag 'no_image.jpg', size: "500x500" %>
         <% end %>
       <% end %>
     </div>
