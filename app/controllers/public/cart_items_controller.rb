@@ -2,6 +2,9 @@ class Public::CartItemsController < ApplicationController
   before_action :authenticate_customer!
   def index
     @cart_items = current_customer.cart_items
+    @inactive_items = @cart_items.select {|cart_item| !cart_item.item.is_active}      
+  # カート内に販売停止中の商品があれば、進行を制限するフラグを渡す
+    @has_inactive_items = @inactive_items.any?
   end
 
   def update

@@ -22,14 +22,15 @@
 
   .overlay-text {
     position: absolute;
-    top: 50%; /* 画像の中央に配置 */
+    top: 23%; /* 画像の上部に配置 */
     left: 50%;
     transform: translate(-50%, -50%); /* 中央に配置するためのオフセット */
     color: white; /* 文字色 */
     font-size: 1.2rem; /* フォントサイズ */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 文字の影をつけて読みやすくする */
     z-index: 1; /* 画像より前面に表示 */
-    max-width: 80%; /* 文字が広がりすぎないように調整 */
+    max-width: 100%; /* 文字が広がりすぎないように調整 */
+    font-size: clamp(0.8rem, 3vw, 1.2rem) /* 最小サイズ, 推奨サイズ, 最大サイズ */
   }
   </style>
 </div>

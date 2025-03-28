@@ -7,11 +7,19 @@
       <div class="col d-flex align-items-stretch"> <!-- 高さも揃える -->
         <div class="card shadow-sm w-100 h-100 d-flex flex-column"> <!-- 幅と高さを統一 -->
           <%= link_to admin_item_path(item), class: "text-decoration-none text-dark" do %>
-            <% if item.image.attached? %>
-              <%= image_tag item.image, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
-            <% else %>
-              <%= image_tag 'no_image.jpg', class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
-            <% end %>
+            <div class="position-relative">          
+              <% if item.image.attached? %>
+                <%= image_tag item.image, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+              <% else %>
+                <%= image_tag 'no_image.jpg', class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+              <% end %>
+
+              <% if !item.is_active %>  <!-- 販売停止中の場合 -->
+                <div class="position-absolute top-50 start-50 translate-middle text-white bg-danger p-2" style="font-size: 1.5rem; opacity: 0.8;">
+                  販売停止
+                </div>
+              <% end %>
+            </div>
           <% end %>
 
           <div class="card-body text-center flex-grow-1"> <!-- 高さを均等に -->
