@@ -1,13 +1,9 @@
 # README
 # プロジェクト名
-裁量労働制
-naganocake ECサイト
+裁量労働制　naganocake ECサイト
 
-
-
-Rails version: 6.1.7.10
-Ruby version: ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x86_64-linux]
-
+## サイトイメージ
+![商品一覧ページ](./app/assets/images/readme用.png)
 ## 概要
 長野県にある小さな洋菓子店「ながのCAKE」の商品を通販するためのECサイト開発。
 
@@ -72,3 +68,7 @@ Ruby version: ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x86_64-linux]
 + 注文ステータス
 + 各注文商品の製作ステータス
 + 注文ごとに注文ステータスの更新、注文商品ごとに製作ステータスの更新ができること
+
+## バージョン
+Rails version: 6.1.7.10
+Ruby version: ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) 
