@@ -36,7 +36,10 @@
     max-width: 80%; /* 文字が広がりすぎないように調整 */
   }
 </style>
-  <h4>新着商品一覧</h4><!-- カードを正方形に変更して画像が横伸びしないように -->
+  <h4 class="text-center my-3">新着商品一覧</h4><!-- カードを正方形に変更して画像が横伸びしないように -->
+  <!-- カードリストとボタンを横並びに配置 -->
+  <div class="d-flex justify-content-center align-items-end">
+    <!-- カードリスト -->
     <div class="card-list-container d-flex flex-wrap justify-content-center">
       <% @items.each do |item| %>
         <div class="card m-3 shadow-lg" style="width: 200px; height: 280px;">
@@ -48,17 +51,18 @@
             <% end %>
           <% end %>
 
-        <div class="card-body text-center"><!-- 文字数多くてはみ出る場合は省略 -->
-        <h5 class="card-title text-truncate" style="max-width: 180px; font-size: clamp(12px, 1.5vw, 16px);">
-          <%= item.name %>
-        </h5>
-        <p class="card-price" style="font-size: clamp(12px, 1.2vw, 14px);"><%= (item.price * 1.1).floor %>円</p>
-      </div>
+          <div class="card-body text-center"><!-- 文字数多くてはみ出る場合は省略 -->
+            <h5 class="card-title text-truncate" style="max-width: 180px; font-size: clamp(12px, 1.5vw, 16px);">
+              <%= item.name %>
+            </h5>
+            <p class="card-price" style="font-size: clamp(12px, 1.2vw, 14px);"><%= (item.price * 1.1).floor %>円</p>
+          </div>
         </div>
       <% end %>
     </div>
-
-  <div>
-    <%= link_to "すべての商品を見る >", items_path, class: "btn btn-outline-info" %>
+    <div class="text-center mt-3">
+      <%= link_to "すべての商品を見る >", items_path, class: "btn btn-outline-info" %>
+    </div>
   </div>
+
 </div>
