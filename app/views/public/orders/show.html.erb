@@ -47,7 +47,8 @@
         <tbody>
           <% @order.order_details.each do |order_detail| %>
             <tr>
-              <td><%= order_detail.item.name %></td>
+              <td><%= order_detail.item&.name || "削除された商品" %></td>
+              <td><%= order_detail.item ? order_detail.add_tax_price.to_i.floor.to_s(:delimited, delimiter: ',') : '-' %>円</td>
               <td><%= order_detail.amount %></td>
               <td><%= number_to_currency(order_detail.price, unit: '円') %></td>
             </tr>
