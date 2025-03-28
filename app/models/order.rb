@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :customer
-  has_many :order_details, dependent: :destroy
+  has_many :order_details, dependent: :nullify
   has_many :items, through: :order_details
 
 
@@ -10,7 +10,8 @@ class Order < ApplicationRecord
   
 
   def add_tax_price
-    (self.item.price * 1.10).round
+    return 0 unless item  # item が nil の場合は 0 を返す
+    (item.price * 1.10).round
   end
 
   def total_amount
