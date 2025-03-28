@@ -12,9 +12,9 @@
   <div class="top-image-container text-center">
     <%= image_tag 'top2.jpg', class: 'top-image' %>
   </div>
-</div>
 
-<style>
+
+  <style>
   .top-image-container {
     position: relative; /* 親要素に相対位置を設定 */
   }
@@ -26,7 +26,7 @@
 
   .overlay-text {
     position: absolute;
-    top: 20%; /* 画像の中央に配置 */
+    top: 50%; /* 画像の中央に配置 */
     left: 50%;
     transform: translate(-50%, -50%); /* 中央に配置するためのオフセット */
     color: white; /* 文字色 */
@@ -35,8 +35,8 @@
     z-index: 1; /* 画像より前面に表示 */
     max-width: 80%; /* 文字が広がりすぎないように調整 */
   }
-</style>
-  <h4>新着商品一覧</h4><!-- カードを正方形に変更して画像が横伸びしないように -->
+  </style>
+  <h4 >新着商品一覧</h4><!-- カードを正方形に変更して画像が横伸びしないように -->
     <div class="card-list-container d-flex flex-wrap justify-content-center">
       <% @items.each do |item| %>
         <div class="card m-3 shadow-lg" style="width: 200px; height: 280px;">
