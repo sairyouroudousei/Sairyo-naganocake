@@ -1,7 +1,24 @@
 class Order < ApplicationRecord
   belongs_to :customer
-  has_many :order_details
+  has_many :order_details, dependent: :nullify
+  has_many :items, through: :order_details
 
-  enum payment_method: {"クレジットカード":0, "銀行振込":1}
-  enum order_status: {"入金待ち":0,"入金確認":1,"製作中":2,"発送準備中":3,"発送済み":4}
+
+  enum payment_method: {credit_card: 0, transfer: 1}
+  enum status: {awaiting_payment: 0, payment_confirmation: 1, in_production: 2, preparing_to_ship: 3 ,already_shipped: 4}
+
+  
+
+  def add_tax_price
+    return 0 unless item  # item が nil の場合は 0 を返す
+    (item.price * 1.10).round
+  end
+
+  def total_amount
+    order_details.sum { |order_detail| order_detail.price * order_detail.amount }
+  end
+
+  def shipping_address_for_view
+    "#{postal_code}\n #{address}\n #{name}"
+  end
 end

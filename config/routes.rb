@@ -28,7 +28,7 @@ scope module: :public do
   get "orders/complete" => "orders#complete"
   resources :orders, only: [:new, :create, :index, :show]
   post "orders/confirm" => "orders#confirm"
-  
+  get 'orders_thanks', to: 'orders#thanks', as: 'orders_thanks'
 
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
 end
@@ -36,7 +36,7 @@ end
 
 namespace :admin do
   root to: "homes#top"
-  resources :items, only: [:index, :new, :create, :show, :edit, :update]
+  resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   resources :genres, only: [:index, :create, :edit, :update]
   resources :customers, only: [:index, :show, :edit, :update]
 

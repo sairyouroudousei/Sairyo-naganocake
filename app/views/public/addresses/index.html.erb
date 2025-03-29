@@ -1,2 +1,78 @@
-<h1>Public::Addresses#index</h1>
-<p>Find me in app/views/public/addresses/index.html.erb</p>
+<div class="container">
+  <h4 class="m-4 text-center">
+    <span class="bg-light px-3 py-2 rounded-pill">配送先登録・一覧</span>
+  </h4>
+
+  <%= form_with model: @address, url: addresses_path do |f| %>
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-8">
+        <div class="card shadow-sm p-4 mb-4">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td class="col-3 font-weight-bold">
+                  <%= f.label :postal_code, "郵便番号（ハイフンなし）" %>
+                </td>
+                <td>
+                  <%= f.text_field :postal_code, placeholder: "1234567", class: "form-control" %>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">
+                  <%= f.label :address, "住所" %>
+                </td>
+                <td>
+                  <%= f.text_field :address, class: "form-control" %>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">
+                  <%= f.label :name, "宛名" %>
+                </td>
+                <td>
+                  <%= f.text_field :name, class: "form-control" %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center mt-4">
+            <%= f.submit "新規登録", class:"btn btn-outline-success px-4 py-2" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-10">
+      <table class="table table-bordered ">
+        <thead class= "thead-light text-center" >
+          <tr>
+            <th>郵便番号</th>
+            <th>住所</th>
+            <th>宛名</th>
+            <th class="text-end"></th> 
+          </tr>
+        </thead>
+        <tbody>
+          <% @addresses.each do |f| %>
+            <tr>
+              <td><%= f.postal_code %></td>
+              <td><%= f.address %></td>
+              <td><%= f.name %></td>
+              <td>
+                <div class="d-flex justify-content-center" style="gap: 30px;">
+                  <%= link_to "編集", edit_address_path(f), class: "btn btn-sm btn-outline-success" %>
+                  <%= link_to "削除", address_path(f), method: :delete, data: { confirm: '本当に消しますか？'}, class: "btn btn-sm btn-outline-danger" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+

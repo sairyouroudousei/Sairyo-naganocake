@@ -1,2 +1,48 @@
-<h1>Public::Orders#index</h1>
-<p>Find me in app/views/public/orders/index.html.erb</p>
+<div class="container mt-5">
+  <h2 class="mb-4">
+    <span style="bg-light px-2">注文履歴</span>
+  </h2>
+
+  <% if @orders.any? %>
+    <table class="table table-bordered">
+      <thead class = "bg-light">
+        <tr>
+          <th>ご注文日</th>
+          <th>配送先</th>
+          <th>注文商品</th>
+          <th>商品単価</th>
+          <th>商品合計額</th>
+          <th>ステータス</th>
+          <th>注文詳細</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <% order.order_details.each_with_index do |order_detail, index| %>
+          <tr>
+            <% if index == 0 %>
+              <td rowspan="<%= order.order_details.count %>"><%= order.created_at.strftime('%Y-%m-%d') %></td>
+              <td rowspan="<%= order.order_details.count %>">
+                            〒<%= order.postal_code %><br>
+                            <%= order.address %><br>
+                            <%= order.name %>
+              </td>
+            <% end %>
+              <td><%= order_detail.item&.name || "削除された商品" %></td>
+              <td><%= order_detail.item ? order_detail.add_tax_price.to_i.floor.to_s(:delimited, delimiter: ',') : '-' %>円</td>
+                  <% if index == 0 %>
+                    <td rowspan="<%= order.order_details.count %>"><%= number_to_currency(order.total_payment, unit: '円') %></td>
+                    <td rowspan="<%= order.order_details.count %>"><%= order.status_i18n %></td>
+                    <td rowspan="<%= order.order_details.count %>">
+                  <%= link_to '詳細', order_path(order), class: 'btn btn-sm btn-outline-success' %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>注文履歴はありません。</p>
+  <% end %>
+</div>

@@ -1,2 +1,85 @@
-<h1>Public::Orders#confirm</h1>
-<p>Find me in app/views/public/orders/confirm.html.erb</p>
+<div class ="container" >
+  <h2 class = "mt-4">注文情報確認</h2>
+    <table class="table table-hover table-inverse m-2">
+      <thead>
+        <tr>
+          <th>商品名</th>
+          <th>単価(税込)</th>
+          <th>数量</th>
+          <th>小計</th>
+        </tr>
+      </thead>
+      <% @cart_items.each do |cart_item| %>
+        <tbody>
+          <tr>
+            <td><!--写真と商品名-->
+              <% if cart_item.item.present? && cart_item.item.image.present? %>
+                <%= image_tag cart_item.item.image, size: "100x100" %>
+              <% else %>
+                <%= image_tag "no_image.jpg", size: "100x100" %> <!-- デフォルト画像を用意 -->
+              <% end %>
+              <br>
+              <%= cart_item.item&.name || "商品情報がありません" %>
+            </td>
+            <td><!--税込単価-->
+              <%= cart_item.tax_included_price %>円
+            </td>
+            <td><!--数量-->
+              <%= cart_item.amount %>
+            </td>
+            <td><!--小計-->
+              <%= cart_item.tax_included_price * cart_item.amount %>円
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+    <div class = "row">
+
+      <div class = "col">
+        <h4>お支払い方法</h4>
+          <p class = "m-2"><%= @order.payment_method_i18n %></p>
+        <h4>お届け先</h4>
+          <div class = "mt-2">
+            <p>〒<%= @order.postal_code %></p>
+            <p><%= @order.address %></p>
+            <p><%= @order.name %> 様</p>
+          </div>
+      </div>
+
+      <div class = "col">
+        <table class='table table border less'>
+          <tbody>
+            <tr>
+              <td>商品合計</td> 
+              <td><%= @total %>円</td>
+            </tr>
+            <tr>
+              <td>送料</td>
+              <td><%= @shipping_cost %>円</td>
+            </tr>
+            <tr>
+              <td>ご請求額</td>
+              <td><strong><%= @total + @shipping_cost %></strong>円</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  <div> 
+    <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
+      <%= f.hidden_field :postal_code, value: @order.postal_code %>
+      <%= f.hidden_field :payment_method, value: @order.payment_method %>
+      <%= f.hidden_field :address, value: @order.address %>
+      <%= f.hidden_field :name, value: @order.name %>
+      <%= f.hidden_field :shipping_cost, value: @shipping_cost %>
+      <%= f.hidden_field :total_payment, value: @total %>
+      <%= f.hidden_field :status %>
+      <%= link_to "修正する", new_order_path, class: "btn btn-sm btn-outline-secondary m-4" %>
+      <%= f.submit "注文を確定する", class: "btn btn-sm btn-outline-success m-4" %>
+    <% end %>
+  </div>
+</div>
+
+

@@ -1,2 +1,78 @@
-<h1>Public::Home#top</h1>
-<p>Find me in app/views/public/home/top.html.erb</p>
+<div class="container">
+  <div class="row">
+    <% if current_customer.nil? %>
+      <div class="text-center overlay-text">
+        <p>ようこそ、ながのCAKEへ!</p>
+        <p>このサイトはケーキ販売のECサイトになります。</p>
+        <p>会員でない方も商品の閲覧はできますが、</p>
+        <p>購入には会員登録が必要になります。</p>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- トップ画像の表示 -->
+  <div class="top-image-container text-center">
+    <%= image_tag 'top2.jpg', class: 'top-image' %>
+  </div>
+
+  <style>
+  .top-image-container {
+    position: relative; /* 親要素に相対位置を設定 */
+  }
+
+  .top-image {
+    width: 100%; /* 画像を横幅100%で表示 */
+    height: auto;
+    margin-top: 20px; /* フラッシュメッセージ分の余白を確保 */
+  }
+
+  .overlay-text {
+    position: absolute;
+    top: 30%; /* 画像の上部に配置 */
+    left: 50%;
+    transform: translate(-50%, -50%); /* 中央に配置するためのオフセット */
+    color: white; /* 文字色 */
+    font-size: clamp(0.8rem, 3vw, 1.2rem) /* フォントサイズ  最小サイズ, 推奨サイズ, 最大サイズ */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 文字の影をつけて読みやすくする */
+    z-index: 1; /* 画像より前面に表示 */
+    max-width: 100%; /* 文字が広がりすぎないように調整 */
+    
+    display: inline-block; /* テキスト範囲だけに背景を適用 */
+    background: rgba(0, 0, 0, 0.5); /* 半透明の黒い背景 */
+    padding: 10px 15px; /* 余白を追加 */
+    border-radius: 8px; /* 角を丸くして柔らかい印象に */
+  }
+
+  </style>
+
+  <h4 class="text-center my-3">新着商品一覧</h4>
+
+  <!-- カードを正方形に変更して画像が横伸びしないように -->
+  <!-- カードリストとボタンを横並びに配置 -->
+  <div class="d-flex flex-column align-items-center">
+    <!-- カードリスト -->
+    <div class="card-list-container d-flex flex-wrap justify-content-center w-100">
+      <% @items.each do |item| %>
+        <div class="card m-1 shadow-lg" style="width: 200px; height: 280px;">
+          <%= link_to item_path(item) do %>
+            <% if item.image.attached? %>
+              <%= image_tag item.image, class: "card-img-top", style: "width: 100%; height: 200px; object-fit: cover;" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', class: "card-img-top", style: "width: 100%; height: 200px; object-fit: cover;" %>
+            <% end %>
+          <% end %>
+
+          <div class="card-body text-center"><!-- 文字数多くてはみ出る場合は省略 -->
+            <h5 class="card-title text-truncate" style="max-width: 180px; font-size: clamp(12px, 1.5vw, 16px);">
+              <%= item.name %>
+            </h5>
+            <p class="card-price" style="font-size: clamp(12px, 1.2vw, 14px);"><%= (item.price * 1.1).floor %>円</p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="text-center mt-3 my-3">
+      <%= link_to "すべての商品を見る >", items_path, class: "btn btn-outline-info" %>
+    </div>
+  </div>
+</div>
