@@ -15,7 +15,6 @@
     <%= image_tag 'top2.jpg', class: 'top-image' %>
   </div>
 
-
   <style>
   .top-image-container {
     position: relative; /* 親要素に相対位置を設定 */
@@ -44,13 +43,14 @@
     border-radius: 8px; /* 角を丸くして柔らかい印象に */
   }
 
-</style>
+  </style>
 
-  <h4 class="text-center my-3">新着商品一覧</h4><!-- カードを正方形に変更して画像が横伸びしないように -->
+  <h4 class="text-center my-3">新着商品一覧</h4>
+
+  <!-- カードを正方形に変更して画像が横伸びしないように -->
   <!-- カードリストとボタンを横並びに配置 -->
   <div class="d-flex flex-column align-items-center">
     <!-- カードリスト -->
-
     <div class="card-list-container d-flex flex-wrap justify-content-center w-100">
       <% @items.each do |item| %>
         <div class="card m-1 shadow-lg" style="width: 200px; height: 280px;">
@@ -75,5 +75,4 @@
       <%= link_to "すべての商品を見る >", items_path, class: "btn btn-outline-info" %>
     </div>
   </div>
-
 </div>
